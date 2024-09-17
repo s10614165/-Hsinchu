@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { BrowserRouter as Router, Link } from "react-router-dom";
-import PageRoutes from "./router/index";
+import "./App.css";
+import PageRoutes from "@/router/";
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <Router>
       <PageRoutes />
