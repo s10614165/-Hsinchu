@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useCookies } from "react-cookie";
-
+import { useLocation } from "react-router-dom";
 // Import images (ensure these imports are correct for your project structure)
 import titleImg from "@/assets/Title.png";
 import startContext from "@/assets/startContext.png";
+import startTime from "@/assets/startTime.png";
 import gameStartImage from "@/assets/gameStart.png";
 import inputImg from "@/assets/Input.png";
-
+import calculateTimeDifference from "@/Util/calculateTimeDifference.js";
 // Styled components (keeping your existing styles)
 const Container = styled.div`
   width: 100vw;
@@ -132,23 +133,59 @@ const StyledName = styled.div`
   color: white;
 `;
 
-
+const routerTimerName = {
+  sun: { start: "sunStartTime", end: "sunEndTime" },
+  water: { start: "waterStartTime", end: "waterEndTime" },
+  wind: { start: "windStartTime", end: "windEndTime" },
+  energy: { start: "energyStartTime", end: "energyEndTime" },
+};
 
 const GameInterface = () => {
-  const [nameCookies, setNameCookie] = useCookies(["name"]);
+  const [s_cookies, set_s_cookie] = useCookies(["name"]);
+
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+
+  // 獲取 'route' 參數的值
+  const route = queryParams.get("route");
+
+  // 獲取 'gameStage' 參數的值
+  const gameStage = queryParams.get("gameStage");
+
+  console.log("route:", route); // 將輸出 "sun"
+  console.log("gameStage:", gameStage); // 將輸出 "start"
+
+  console.log(routerTimerName[route].start);
+  console.log(s_cookies[routerTimerName[route].start]);
+
   const [name, setName] = useState("");
 
   const handleStartGame = () => {
-    if(name==="請輸入暱稱"){
-      return
+    if (name === "請輸入暱稱") {
+      return;
     }
     if (name.trim() === "") {
       setName("請輸入暱稱");
     } else {
-      setNameCookie("name", name, { path: "/" });
+      set_s_cookie("name", name, { path: "/" });
     }
   };
 
+  useEffect(() => {
+    if (gameStage === "start") {
+      set_s_cookie(routerTimerName[route].start, new Date(), { path: "/" });
+      return;
+    }
+    set_s_cookie(routerTimerName[route].end, new Date(), { path: "/" });
+  }, []);
+  console.log(
+    calculateTimeDifference(
+      s_cookies[routerTimerName[route].start],
+      s_cookies[routerTimerName[route].end]
+    )
+  );
+  console.log(  s_cookies[routerTimerName[route].start])
+  console.log(  s_cookies[routerTimerName[route].end])
   return (
     <Container>
       <Header>
@@ -160,12 +197,18 @@ const GameInterface = () => {
       <Main>
         <CharacterImage>
           <CharacterImageStyle
-            src={startContext}
+            src={
+              s_cookies.name !== "請輸入暱稱" &&
+              s_cookies.name !== "" &&
+              s_cookies.name !== undefined
+                ? startTime
+                : startContext
+            }
             alt="在開始任務前，要跟你說明一下，有很多組入馬一起行動，在越短的時間完成任務就能被排在任務排行榜的前20名喔！試著用最短的時間來完成任務吧！"
           />
         </CharacterImage>
 
-        {!nameCookies.name ? (
+        {!s_cookies.name ? (
           <InputArea>
             <StyledInput
               value={name}
@@ -176,7 +219,7 @@ const GameInterface = () => {
             />
           </InputArea>
         ) : (
-          <StyledName>{nameCookies.name}</StyledName>
+          <StyledName>{s_cookies.name}</StyledName>
         )}
 
         <StartButton>

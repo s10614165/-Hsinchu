@@ -1,8 +1,12 @@
 import React from "react";
-import { BrowserRouter as Router, Link } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import "./App.css";
 import PageRoutes from "@/router/";
+
+import { useCookies } from "react-cookie";
 function App() {
+  const [cookies, set_cookies] = useCookies(["name"]);
+  console.log(cookies);
   return (
     <Router>
       <PageRoutes />
