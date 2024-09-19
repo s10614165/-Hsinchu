@@ -5,8 +5,6 @@ import PageRoutes from "@/router/";
 
 import { useCookies } from "react-cookie";
 function App() {
-  const [cookies, set_cookies] = useCookies(["name"]);
-  console.log(cookies);
   return (
     <Router>
       <PageRoutes />

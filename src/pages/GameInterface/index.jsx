@@ -9,6 +9,7 @@ import startTime from "@/assets/startTime.png";
 import gameStartImage from "@/assets/gameStart.png";
 import inputImg from "@/assets/Input.png";
 import calculateTimeDifference from "@/Util/calculateTimeDifference.js";
+import parseTimeDifference from "@/Util/parseTimeDifferen";
 // Styled components (keeping your existing styles)
 const Container = styled.div`
   width: 100vw;
@@ -145,47 +146,54 @@ const GameInterface = () => {
 
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-
   // 獲取 'route' 參數的值
   const route = queryParams.get("route");
-
   // 獲取 'gameStage' 參數的值
   const gameStage = queryParams.get("gameStage");
 
-  console.log("route:", route); // 將輸出 "sun"
-  console.log("gameStage:", gameStage); // 將輸出 "start"
-
-  console.log(routerTimerName[route].start);
-  console.log(s_cookies[routerTimerName[route].start]);
-
-  const [name, setName] = useState("");
+  const [s_name, set_s_name] = useState("");
+  const [s_timeDiff, set_s_timeDiff] = useState("00:00:00");
+  // const []
 
   const handleStartGame = () => {
-    if (name === "請輸入暱稱") {
+    if (s_name === "請輸入暱稱") {
       return;
     }
-    if (name.trim() === "") {
-      setName("請輸入暱稱");
+    if (s_name.trim() === "") {
+      set_s_name("請輸入暱稱");
     } else {
-      set_s_cookie("name", name, { path: "/" });
+      set_s_cookie("name", s_name, { path: "/" });
     }
   };
 
   useEffect(() => {
     if (gameStage === "start") {
+      console.log("in start");
       set_s_cookie(routerTimerName[route].start, new Date(), { path: "/" });
       return;
     }
+    console.log("in end");
     set_s_cookie(routerTimerName[route].end, new Date(), { path: "/" });
+      console.log(s_cookies[routerTimerName[route].end])
+      console.log(
+        calculateTimeDifference(
+          s_cookies[routerTimerName[route].start],
+          new Date()
+        )
+      );
   }, []);
-  console.log(
-    calculateTimeDifference(
-      s_cookies[routerTimerName[route].start],
-      s_cookies[routerTimerName[route].end]
-    )
-  );
-  console.log(  s_cookies[routerTimerName[route].start])
-  console.log(  s_cookies[routerTimerName[route].end])
+
+
+  // console.log(
+  //   parseTimeDifference(
+  //     calculateTimeDifference(
+  //       s_cookies[routerTimerName[route].start],
+  //       s_cookies[routerTimerName[route].end]
+  //     )
+  //   )
+  // );
+  // console.log(s_cookies[routerTimerName[route].start]);
+  // console.log(s_cookies[routerTimerName[route].end]);
   return (
     <Container>
       <Header>
@@ -211,9 +219,9 @@ const GameInterface = () => {
         {!s_cookies.name ? (
           <InputArea>
             <StyledInput
-              value={name}
+              value={s_name}
               onChange={(e) => {
-                setName(e.target.value);
+                set_s_name(e.target.value);
               }}
               placeholder="輸入您的暱稱"
             />

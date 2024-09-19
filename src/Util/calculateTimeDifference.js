@@ -14,6 +14,12 @@ function calculateTimeDifference(time1, time2) {
   const seconds = Math.floor(diff / 1000);
 
   // 格式化輸出
-  return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+  const result = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+  
+  // 添加控制台輸出
+  console.log(`時間差異: ${hours}時${minutes}分${seconds}秒`);
+
+  return result;
 }
-  export default calculateTimeDifference
+
+export default calculateTimeDifference;
