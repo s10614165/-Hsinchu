@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useCookies } from "react-cookie";
-import { useLocation, useNavigate, createSearchParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 
 import titleImg from "@/assets/Title.png";
@@ -15,8 +15,8 @@ import calculateTimeDifference from "@/Util/calculateTimeDifference.js";
 import parseTimeDifference from "@/Util/parseTimeDifferen";
 
 const Container = styled.div`
-  width: clamp(100vw, 100vw, 100%);
-  height: clamp(100vh, 100vh, 100%);
+  width: 100%;
+  min-height: 100vh;
   padding: 20px;
   font-family: Arial, sans-serif;
   background-color: #000000;
@@ -35,13 +35,17 @@ const Logo = styled.div`
   margin: 0 auto;
   display: flex;
   justify-content: center;
+  width: 100%;
+  max-width: 582.86px;
 `;
 
 const LogoImage = styled.img`
-  max-width: 100%;
-  aspect-ratio: 2.54/1;
+  width: 100%;
+  height: clamp(0px, calc(100vw * 240 / 582.86), 240px);
+  max-width: 582.86px;
+  max-height: 240px;
+  aspect-ratio: 582.86 / 240;
   display: block;
-  height: auto;
   object-fit: contain;
 `;
 
@@ -51,55 +55,71 @@ const Main = styled.main`
   align-items: center;
   flex-grow: 1;
   width: 100%;
-  height: calc(80vh - 20px);
+  max-height: calc(75vh - 20px);
 `;
 
 const CharacterImage = styled.div`
   margin: 0 auto;
-  width: calc(100%);
-  max-height: calc(60vh - 40px);
+  width: 100%;
+  max-width: 844.66px;
+  height: clamp(0px, calc(100vw * (345 / 844.66)), 345px);
   display: flex;
   align-items: center;
+`;
+
+const CharacterImageStyle = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  aspect-ratio: 844.66 / 345;
 `;
 const TimeExclude = styled.div`
   position: relative;
   margin-top: 30px;
-  width: calc(100%);
-  max-height: calc(60vh - 40px);
+  width: 100%;
+  max-width: 960px;
+  aspect-ratio: 960 / 246;
   display: flex;
   align-items: center;
   justify-content: center;
 `;
 
 const TimeExcludeImageStyle = styled.img`
-  width: 37%;
-  height: 100%;
-  object-fit: contain;
-`;
-const CharacterImageStyle = styled.img`
-  aspect-ratio: 6/1;
-  max-width: 100%;
   width: 100%;
   height: 100%;
   object-fit: contain;
+`;
+
+const TimeDisplayWrapper = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  width: 100%;
+`;
+
+const TimeZone = styled.div`
+  font-size: clamp(16px, 6.67vw, 64px);
+  color: #53f9ef;
+  font-weight: 700;
+  margin-bottom: 10px;
+`;
+
+const TimeZoneText = styled.div`
+  font-weight: 700;
+
+  font-size: clamp(12px, 3.33vw, 32px);
+  color: white;
 `;
 
 const StartButton = styled.div`
   text-align: center;
   padding: calc(2vh + 10px) 0;
   width: 100%;
-`;
-
-const InputArea = styled.div`
-  margin: 0 auto;
-  max-width: 500px;
-  width: 300px;
   display: flex;
   justify-content: center;
-  flex-direction: column;
-  align-items: center;
 `;
-
 const CustomButton = styled.button`
   background-size: 100% 100%;
   background-repeat: no-repeat;
@@ -109,12 +129,13 @@ const CustomButton = styled.button`
   color: transparent;
   font-size: 0;
   transition: transform 0.3s ease;
-  background-image: ${({ route }) =>
-    route === "start" ? `url(${gameStartImage})` : `url(${gameEndImage})`};
-  width: clamp(200px, 20vw, 300px);
-  height: clamp(30px, 6vw, 90px);
-  max-width: 300px;
-  max-height: 90px;
+  background-image: ${({ gameStage }) =>
+    gameStage === "start" ? `url(${gameStartImage})` : `url(${gameEndImage})`};
+
+  width: clamp(150px, 30vw, 300px);
+  height: calc(clamp(150px, 30vw, 300px) * (90 / 300));
+
+  aspect-ratio: 300 / 90;
 
   &:hover {
     transform: scale(1.05);
@@ -123,6 +144,16 @@ const CustomButton = styled.button`
   &:active {
     transform: scale(0.95);
   }
+`;
+
+const InputArea = styled.div`
+  margin: 0 auto;
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 `;
 const StyledInput = styled.input`
   margin-top: 10px;
@@ -133,13 +164,15 @@ const StyledInput = styled.input`
   cursor: pointer;
   color: ${({ value }) => (value === "請輸入暱稱" ? "red" : "white")};
 
-  font-size: 28px;
+  font-size: clamp(16px, 4.67vw, 28px);
   text-align: center;
   transition: transform 0.3s ease;
   background-image: url(${inputImg});
-  width: clamp(200px, 100%, 500px);
-  height: 60px;
-  max-height: 90px;
+
+  width: clamp(200px, 100%, 600px);
+  height: clamp(30px, 15vw, 90px);
+
+  aspect-ratio: 600 / 90;
 
   &:active {
     transform: scale(0.95);
@@ -152,24 +185,14 @@ const StyledName = styled.div`
   color: white;
 `;
 
-const TimeZone = styled.div`
-  font-size: clamp(2rem, 3.5vw, 64px);
-  font-weight: "700";
-  color: #53f9ef;
-`;
-const TimeZoneText = styled.div`
-  font-size: clamp(1rem, 1.7vw, 32px);
-  font-weight: "700";
-`;
-
-const routerTimerName = {
+const ROUTER_TIMER_NAME = {
   sun: { start: "sunStartTime", end: "sunEndTime" },
   water: { start: "waterStartTime", end: "waterEndTime" },
   wind: { start: "windStartTime", end: "windEndTime" },
   energy: { start: "energyStartTime", end: "energyEndTime" },
 };
 
-const gameStageShowStates = {
+const GAME_STAGE_SHOW_STATES = {
   start: {
     titleContextImage: true,
     timeZone: false,
@@ -207,139 +230,113 @@ const gameStageShowStates = {
   },
 };
 
+const COOKIE_NAMES = [
+  "name",
+  "UUID",
+  "windStartTime",
+  "windEndTime",
+  "sunStartTime",
+  "sunEndTime",
+  "waterStartTime",
+  "waterEndTime",
+  "energyStartTime",
+  "energyEndTime",
+];
+
 const GameInterface = () => {
   const location = useLocation();
-  const navigate = useNavigate();
   const queryParams = new URLSearchParams(location.search);
   const route = queryParams.get("route");
   const gameStage = queryParams.get("gameStage");
-  const [s_cookies, set_s_cookie] = useCookies([
-    'name',
-    'UUID',
-    'windStartTime',
-    'windEndTime',
-    'sunStartTime',
-    'sunEndTime',
-    'waterStartTime',
-    'waterEndTime',
-    'energyStartTime',
-    'energyEndTime'
-  ]);
 
-  const [s_name, set_s_name] = useState("");
-  const [s_timeDiff, set_s_timeDiff] = useState("00:00:00");
-
-  const [s_isShow, set_s_isShow] = useState(gameStageShowStates["start"]);
+  const [cookies, setCookie] = useCookies(COOKIE_NAMES);
+  const [name, setName] = useState("");
+  const [timeDiff, setTimeDiff] = useState("00:00:00");
+  const [isShow, setIsShow] = useState(GAME_STAGE_SHOW_STATES.start);
 
   const handleStartGame = () => {
-    //不同 route進來之後，按下開始按鈕
-    if (s_cookies.name !== undefined) {
-      console.log("in next router");
-      set_s_cookie(routerTimerName[route].start, new Date().toISOString(), {
-        path: "/",
-      });
-      set_s_isShow(gameStageShowStates["enterName"]);
-    }
-
-    if (s_name === "請輸入暱稱") {
+    if (
+      cookies[ROUTER_TIMER_NAME[route].start] !== undefined &&
+      cookies[ROUTER_TIMER_NAME[route].end] !== undefined
+    ) {
+      console.log(cookies.name);
+      console.log(cookies.UUID);
+      console.log(timeDiff);
       return;
     }
-    if (s_name.trim() === "") {
-      set_s_name("請輸入暱稱");
-    } else {
-      set_s_cookie("name", s_name, { path: "/" });
-      set_s_cookie("UUID", uuidv4(), { path: "/" });
-      set_s_cookie(routerTimerName[route].start, new Date().toISOString(), {
+    if (cookies.name !== undefined) {
+      setCookie(ROUTER_TIMER_NAME[route].start, new Date().toISOString(), {
         path: "/",
       });
-      set_s_isShow(gameStageShowStates["enterName"]);
+      setIsShow(GAME_STAGE_SHOW_STATES.enterName);
+      return;
+    }
+
+    if (name.trim() === "") {
+      setName("請輸入暱稱");
+    } else {
+      setCookie("name", name, { path: "/" });
+      setCookie("UUID", uuidv4(), { path: "/" });
+      setCookie(ROUTER_TIMER_NAME[route].start, new Date().toISOString(), {
+        path: "/",
+      });
+      setIsShow(GAME_STAGE_SHOW_STATES.enterName);
     }
   };
 
   useEffect(() => {
-    if (gameStage === "start" && s_cookies.name !== undefined) {
-      if (s_cookies[routerTimerName[route].start] === undefined) {
-        //代表輸入過姓名且挑戰過一個關卡
-        // set_s_cookie(routerTimerName[route].start, new Date().toISOString(), {
-        //   path: "/",
-        // });
-        console.log("in change router");
-        set_s_isShow(gameStageShowStates["nextRouter"]);
+    if (gameStage === "start" && cookies.name !== undefined) {
+      if (cookies[ROUTER_TIMER_NAME[route]?.start] === undefined) {
+        setIsShow(GAME_STAGE_SHOW_STATES.nextRouter);
+        return;
       }
-      return;
+      setIsShow(GAME_STAGE_SHOW_STATES.enterName);
+    } else if (gameStage === "end" && cookies.name !== undefined) {
+      setIsShow(GAME_STAGE_SHOW_STATES.end);
+    } else if (gameStage === "processing" && cookies.name !== undefined) {
+      setIsShow(GAME_STAGE_SHOW_STATES.processing);
+    } else if (gameStage === "end" && cookies.name === undefined) {
+      setIsShow(GAME_STAGE_SHOW_STATES.start);
     }
-    if (gameStage === "end" && s_cookies.name !== undefined) {
-      set_s_isShow(gameStageShowStates["end"]);
-      return;
-    }
-    if (gameStage === "processing" && s_cookies.name !== undefined) {
-      set_s_isShow(gameStageShowStates["processing"]);
-      return;
-    }
-    if (gameStage === "end" && s_cookies.name === undefined) {
-      set_s_isShow(gameStageShowStates["start"]);
-      return;
-    }
-
-    // set_s_cookie(routerTimerName[route].end, new Date(), { path: "/" });
-  }, []);
+  }, [gameStage, cookies.name, route]);
 
   useEffect(() => {
-    const startTime = s_cookies[routerTimerName[route]?.start];
-    const endTime = s_cookies[routerTimerName[route]?.end];
-    console.log(s_cookies)
+    const startTime = cookies[ROUTER_TIMER_NAME[route]?.start];
+    const endTime = cookies[ROUTER_TIMER_NAME[route]?.end];
+    console.log("IN rout useEffect");
+    console.log(endTime);
     console.log(startTime);
-    console.log(endTime)
-    console.log(s_isShow);
-    console.log(route);
-    console.log(gameStage);
-    if (gameStage === "end") {
-      console.log("in end")
-      if(endTime!==undefined)return
+    if (endTime !== undefined && startTime !== undefined) {
+      setTimeDiff(calculateTimeDifference(startTime, endTime));
+
+      return;
+    }
+    if (gameStage === "end" && endTime === undefined) {
       const now = new Date().toISOString();
-      set_s_cookie(routerTimerName[route].end, now, { path: "/" });
-      const timeDiff = calculateTimeDifference(startTime, now);
-      set_s_timeDiff(timeDiff);
-      set_s_isShow(gameStageShowStates["end"]);
-      return
-    }
-    if (
+      setCookie(ROUTER_TIMER_NAME[route].end, now, { path: "/" });
+      setTimeDiff(calculateTimeDifference(startTime, now));
+      // setIsShow(GAME_STAGE_SHOW_STATES.end);
+    } else if (
       startTime !== undefined &&
       endTime === undefined &&
-      gameStage === "start"
+      (gameStage === "start" || gameStage === "processing")
     ) {
-      console.log("in");
       const updateTimer = () => {
         const now = new Date().toISOString();
-        const timeDiff = calculateTimeDifference(startTime, now);
-        set_s_timeDiff(timeDiff);
+        setTimeDiff(calculateTimeDifference(startTime, now));
       };
-      set_s_isShow(gameStageShowStates["enterName"]);
 
-      updateTimer(); // Initial update
+      setIsShow(
+        gameStage === "start"
+          ? GAME_STAGE_SHOW_STATES.enterName
+          : GAME_STAGE_SHOW_STATES.processing
+      );
+
+      updateTimer();
       const timerId = setInterval(updateTimer, 1000);
-
-      return () => clearInterval(timerId); // Cleanup on unmount
+      return () => clearInterval(timerId);
     }
-    if (
-      startTime !== undefined &&
-      endTime === undefined &&
-      gameStage === "processing"
-    ) {
-      console.log("in");
-      const updateTimer = () => {
-        const now = new Date().toISOString();
-        const timeDiff = calculateTimeDifference(startTime, now);
-        set_s_timeDiff(timeDiff);
-      };
-      set_s_isShow(gameStageShowStates["processing"]);
-
-      updateTimer(); // Initial update
-      const timerId = setInterval(updateTimer, 1000);
-
-      return () => clearInterval(timerId); // Cleanup on unmount
-    }
-  }, [s_cookies, route, gameStage, s_isShow]);
+  }, [cookies, route, gameStage]);
 
   return (
     <Container>
@@ -349,11 +346,11 @@ const GameInterface = () => {
         </Logo>
       </Header>
       <Main>
-        {s_isShow.titleContextImage && (
+        {isShow.titleContextImage && (
           <CharacterImage>
             <CharacterImageStyle
               src={
-                s_cookies[routerTimerName[route].start] !== undefined
+                cookies[ROUTER_TIMER_NAME[route]?.start] !== undefined
                   ? startTime
                   : startContext
               }
@@ -362,54 +359,39 @@ const GameInterface = () => {
           </CharacterImage>
         )}
 
-        {s_isShow.input && (
+        {isShow.input && (
           <InputArea>
             <StyledInput
-              value={s_name}
-              onFocus={() => {
-                set_s_name("");
-              }}
-              onChange={(e) => {
-                set_s_name(e.target.value);
-              }}
+              value={name}
+              onFocus={() => setName("")}
+              onChange={(e) => setName(e.target.value)}
               placeholder="輸入您的暱稱"
             />
           </InputArea>
         )}
 
-        {s_isShow.name && (
-          <StyledName gameStage={gameStage}>{s_cookies.name}</StyledName>
+        {isShow.name && (
+          <StyledName gameStage={gameStage}>{cookies.name}</StyledName>
         )}
 
-        {s_isShow.timeZone && (
+        {isShow.timeZone && (
           <TimeExclude>
             <TimeExcludeImageStyle src={exclude} />
-            <div
-              style={{
-                position: "absolute",
-                top: "20%",
-                fontSize: "64px",
-                fontWeight: "700",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                flexDirection: "column",
-                gap: "10px",
-              }}
-            >
-              <TimeZone>{s_timeDiff}</TimeZone>
+            <TimeDisplayWrapper>
+              <TimeZone>{timeDiff}</TimeZone>
               <TimeZoneText>{"你的遊玩時間"}</TimeZoneText>
-            </div>
+            </TimeDisplayWrapper>
           </TimeExclude>
         )}
 
-        {s_isShow.button && (
+        {isShow.button && (
           <StartButton>
-            <CustomButton route={route} onClick={handleStartGame} />
+            <CustomButton gameStage={gameStage} onClick={handleStartGame} />
           </StartButton>
         )}
       </Main>
     </Container>
   );
 };
+
 export default GameInterface;
