@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useCookies } from "react-cookie";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate, createSearchParams } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
-// Import images (ensure these imports are correct for your project structure)
+
 import titleImg from "@/assets/Title.png";
 import startContext from "@/assets/startContext.png";
 import startTime from "@/assets/startTime.png";
 import gameStartImage from "@/assets/gameStart.png";
+import gameEndImage from "@/assets/gameEnd.png";
 import inputImg from "@/assets/Input.png";
 import exclude from "@/assets/Exclude.png";
 import calculateTimeDifference from "@/Util/calculateTimeDifference.js";
@@ -108,9 +109,11 @@ const CustomButton = styled.button`
   color: transparent;
   font-size: 0;
   transition: transform 0.3s ease;
-  background-image: url(${gameStartImage});
-  width: clamp(200px, 200px, 300px);
-  height: clamp(30px, 60px, 90px);
+  background-image: ${({ route }) => 
+    route === "start" ? `url(${gameStartImage})` : `url(${gameEndImage})`
+  };
+  width: clamp(200px, 20vw, 300px);
+  height: clamp(30px, 6vw, 90px);
   max-width: 300px;
   max-height: 90px;
 
@@ -122,7 +125,6 @@ const CustomButton = styled.button`
     transform: scale(0.95);
   }
 `;
-
 const StyledInput = styled.input`
   margin-top: 10px;
   background-size: 100% 100%;
@@ -151,13 +153,6 @@ const StyledName = styled.div`
   color: white;
 `;
 
-const routerTimerName = {
-  sun: { start: "sunStartTime", end: "sunEndTime" },
-  water: { start: "waterStartTime", end: "waterEndTime" },
-  wind: { start: "windStartTime", end: "windEndTime" },
-  energy: { start: "energyStartTime", end: "energyEndTime" },
-};
-
 const TimeZone = styled.div`
   font-size: clamp(2rem, 3.5vw, 64px);
   font-weight: "700";
@@ -168,16 +163,74 @@ const TimeZoneText = styled.div`
   font-weight: "700";
 `;
 
+const routerTimerName = {
+  sun: { start: "sunStartTime", end: "sunEndTime" },
+  water: { start: "waterStartTime", end: "waterEndTime" },
+  wind: { start: "windStartTime", end: "windEndTime" },
+  energy: { start: "energyStartTime", end: "energyEndTime" },
+};
+
+const gameStageShowStates = {
+  start: {
+    titleContextImage: true,
+    timeZone: false,
+    input: true,
+    button: true,
+    name: false,
+  },
+  enterName: {
+    titleContextImage: true,
+    timeZone: true,
+    input: false,
+    button: false,
+    name: true,
+  },
+  processing: {
+    titleContextImage: false,
+    timeZone: true,
+    input: false,
+    button: false,
+    name: true,
+  },
+  end: {
+    titleContextImage: false,
+    timeZone: true,
+    input: false,
+    button: true,
+    name: true,
+  },
+  nextRouter: {
+    titleContextImage: true,
+    timeZone: false,
+    input: false,
+    button: true,
+    name: true,
+  },
+};
+
 const GameInterface = () => {
-  const [s_cookies, set_s_cookie] = useCookies(["name"]);
   const location = useLocation();
+  const navigate = useNavigate();
   const queryParams = new URLSearchParams(location.search);
   const route = queryParams.get("route");
   const gameStage = queryParams.get("gameStage");
+  const [s_cookies, set_s_cookie] = useCookies(["name"]);
+
   const [s_name, set_s_name] = useState("");
   const [s_timeDiff, set_s_timeDiff] = useState("00:00:00");
 
+  const [s_isShow, set_s_isShow] = useState(gameStageShowStates["start"]);
+
   const handleStartGame = () => {
+    //不同 route進來之後，按下開始按鈕
+    if (s_cookies.name !== undefined) {
+      console.log("in next router");
+      set_s_cookie(routerTimerName[route].start, new Date().toISOString(), {
+        path: "/",
+      });
+      set_s_isShow(gameStageShowStates["enterName"]);
+    }
+
     if (s_name === "請輸入暱稱") {
       return;
     }
@@ -189,31 +242,53 @@ const GameInterface = () => {
       set_s_cookie(routerTimerName[route].start, new Date().toISOString(), {
         path: "/",
       });
+      set_s_isShow(gameStageShowStates["enterName"]);
     }
   };
 
   useEffect(() => {
-    if (gameStage === "start") {
+    if (gameStage === "start" && s_cookies.name !== undefined) {
+      if (s_cookies[routerTimerName[route].start] === undefined) {
+        //代表輸入過姓名且挑戰過一個關卡
+        // set_s_cookie(routerTimerName[route].start, new Date().toISOString(), {
+        //   path: "/",
+        // });
+        console.log("in change router");
+        set_s_isShow(gameStageShowStates["nextRouter"]);
+      }
       return;
     }
-    console.log("in end");
+    if (gameStage === "end" && s_cookies.name !== undefined) {
+      set_s_isShow(gameStageShowStates["end"]);
+      return;
+    }
+    if (gameStage === "processing" && s_cookies.name !== undefined) {
+      set_s_isShow(gameStageShowStates["processing"]);
+      return;
+    }
+    if (gameStage === "end" && s_cookies.name === undefined) {
+      set_s_isShow(gameStageShowStates["start"]);
+      return;
+    }
+
     // set_s_cookie(routerTimerName[route].end, new Date(), { path: "/" });
   }, []);
 
   useEffect(() => {
-    const startTime = s_cookies[routerTimerName[route].start];
-    const endTime = s_cookies[routerTimerName[route].end];
-    console.log(gameStage);
+    const startTime = s_cookies[routerTimerName[route]?.start];
+    const endTime = s_cookies[routerTimerName[route]?.end];
+
     if (gameStage === "end") {
       const now = new Date().toISOString();
       set_s_cookie(routerTimerName[route].end, now, { path: "/" });
       const timeDiff = calculateTimeDifference(startTime, now);
       set_s_timeDiff(timeDiff);
+      set_s_isShow(gameStageShowStates["end"]);
     }
     if (
       startTime !== undefined &&
       endTime === undefined &&
-      (gameStage === "start" || gameStage === "processing")
+      gameStage === "start"
     ) {
       console.log("in");
       const updateTimer = () => {
@@ -221,14 +296,33 @@ const GameInterface = () => {
         const timeDiff = calculateTimeDifference(startTime, now);
         set_s_timeDiff(timeDiff);
       };
+      set_s_isShow(gameStageShowStates["enterName"]);
 
       updateTimer(); // Initial update
       const timerId = setInterval(updateTimer, 1000);
 
       return () => clearInterval(timerId); // Cleanup on unmount
     }
-  }, [s_cookies, route, gameStage]);
+    if (
+      startTime !== undefined &&
+      endTime === undefined &&
+      gameStage === "processing"
+    ) {
+      console.log("in");
+      const updateTimer = () => {
+        const now = new Date().toISOString();
+        const timeDiff = calculateTimeDifference(startTime, now);
+        set_s_timeDiff(timeDiff);
+      };
+      set_s_isShow(gameStageShowStates["processing"]);
 
+      updateTimer(); // Initial update
+      const timerId = setInterval(updateTimer, 1000);
+
+      return () => clearInterval(timerId); // Cleanup on unmount
+    }
+  }, [s_cookies, route, gameStage, s_isShow]);
+  console.log(s_isShow);
   return (
     <Container>
       <Header>
@@ -237,7 +331,7 @@ const GameInterface = () => {
         </Logo>
       </Header>
       <Main>
-        {gameStage !== "start" ? null : (
+        {s_isShow.titleContextImage && (
           <CharacterImage>
             <CharacterImageStyle
               src={
@@ -250,7 +344,7 @@ const GameInterface = () => {
           </CharacterImage>
         )}
 
-        {!s_cookies.name && gameStage === "start" ? (
+        {s_isShow.input && (
           <InputArea>
             <StyledInput
               value={s_name}
@@ -263,10 +357,13 @@ const GameInterface = () => {
               placeholder="輸入您的暱稱"
             />
           </InputArea>
-        ) : (
+        )}
+
+        {s_isShow.name && (
           <StyledName gameStage={gameStage}>{s_cookies.name}</StyledName>
         )}
-        {s_cookies[routerTimerName[route].start] !== undefined ? (
+
+        {s_isShow.timeZone && (
           <TimeExclude>
             <TimeExcludeImageStyle src={exclude} />
             <div
@@ -286,9 +383,11 @@ const GameInterface = () => {
               <TimeZoneText>{"你的遊玩時間"}</TimeZoneText>
             </div>
           </TimeExclude>
-        ) : (
+        )}
+
+        {s_isShow.button && (
           <StartButton>
-            <CustomButton onClick={handleStartGame} />
+            <CustomButton route={route} onClick={handleStartGame} />
           </StartButton>
         )}
       </Main>
