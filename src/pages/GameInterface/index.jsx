@@ -109,9 +109,8 @@ const CustomButton = styled.button`
   color: transparent;
   font-size: 0;
   transition: transform 0.3s ease;
-  background-image: ${({ route }) => 
-    route === "start" ? `url(${gameStartImage})` : `url(${gameEndImage})`
-  };
+  background-image: ${({ route }) =>
+    route === "start" ? `url(${gameStartImage})` : `url(${gameEndImage})`};
   width: clamp(200px, 20vw, 300px);
   height: clamp(30px, 6vw, 90px);
   max-width: 300px;
@@ -214,7 +213,18 @@ const GameInterface = () => {
   const queryParams = new URLSearchParams(location.search);
   const route = queryParams.get("route");
   const gameStage = queryParams.get("gameStage");
-  const [s_cookies, set_s_cookie] = useCookies(["name"]);
+  const [s_cookies, set_s_cookie] = useCookies([
+    'name',
+    'UUID',
+    'windStartTime',
+    'windEndTime',
+    'sunStartTime',
+    'sunEndTime',
+    'waterStartTime',
+    'waterEndTime',
+    'energyStartTime',
+    'energyEndTime'
+  ]);
 
   const [s_name, set_s_name] = useState("");
   const [s_timeDiff, set_s_timeDiff] = useState("00:00:00");
@@ -277,7 +287,12 @@ const GameInterface = () => {
   useEffect(() => {
     const startTime = s_cookies[routerTimerName[route]?.start];
     const endTime = s_cookies[routerTimerName[route]?.end];
-
+    console.log(s_cookies)
+    console.log(startTime);
+    console.log(endTime)
+    console.log(s_isShow);
+    console.log(route);
+    console.log(gameStage);
     if (gameStage === "end") {
       const now = new Date().toISOString();
       set_s_cookie(routerTimerName[route].end, now, { path: "/" });
@@ -322,7 +337,7 @@ const GameInterface = () => {
       return () => clearInterval(timerId); // Cleanup on unmount
     }
   }, [s_cookies, route, gameStage, s_isShow]);
-  console.log(s_isShow);
+
   return (
     <Container>
       <Header>
