@@ -294,11 +294,14 @@ const GameInterface = () => {
     console.log(route);
     console.log(gameStage);
     if (gameStage === "end") {
+      console.log("in end")
+      if(endTime!==undefined)return
       const now = new Date().toISOString();
       set_s_cookie(routerTimerName[route].end, now, { path: "/" });
       const timeDiff = calculateTimeDifference(startTime, now);
       set_s_timeDiff(timeDiff);
       set_s_isShow(gameStageShowStates["end"]);
+      return
     }
     if (
       startTime !== undefined &&
