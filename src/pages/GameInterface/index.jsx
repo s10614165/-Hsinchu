@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useCookies } from "react-cookie";
 import { useLocation } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
-
+import RankList from "./RankList.jsx";
 import titleImg from "@/assets/Title.png";
 import startContext from "@/assets/startContext.png";
 import startTime from "@/assets/startTime.png";
@@ -194,25 +194,31 @@ const ROUTER_TIMER_NAME = {
 
 const GAME_STAGE_SHOW_STATES = {
   start: {
+    logo: true,
     titleContextImage: true,
     timeZone: false,
     input: true,
     button: true,
     name: false,
+    rank: false,
   },
   enterName: {
+    logo: true,
     titleContextImage: true,
     timeZone: true,
     input: false,
     button: false,
     name: true,
+    rank: false,
   },
   processing: {
+    logo: true,
     titleContextImage: false,
     timeZone: true,
     input: false,
     button: false,
     name: true,
+    rank: false,
   },
   end: {
     titleContextImage: false,
@@ -222,11 +228,22 @@ const GAME_STAGE_SHOW_STATES = {
     name: true,
   },
   nextRouter: {
+    logo: true,
     titleContextImage: true,
     timeZone: false,
     input: false,
     button: true,
     name: true,
+    rank: false,
+  },
+  rank: {
+    logo: false,
+    titleContextImage: false,
+    timeZone: false,
+    input: false,
+    button: true,
+    name: false,
+    rank: true,
   },
 };
 
@@ -262,6 +279,7 @@ const GameInterface = () => {
       console.log(cookies.name);
       console.log(cookies.UUID);
       console.log(timeDiff);
+      setIsShow(GAME_STAGE_SHOW_STATES.rank);
       return;
     }
     if (cookies.name !== undefined) {
@@ -341,9 +359,11 @@ const GameInterface = () => {
   return (
     <Container>
       <Header>
-        <Logo>
-          <LogoImage src={titleImg} alt="源大覺醒" />
-        </Logo>
+        {isShow.logo && (
+          <Logo>
+            <LogoImage src={titleImg} alt="源大覺醒" />
+          </Logo>
+        )}
       </Header>
       <Main>
         {isShow.titleContextImage && (
@@ -383,6 +403,7 @@ const GameInterface = () => {
             </TimeDisplayWrapper>
           </TimeExclude>
         )}
+        {isShow.rank && <RankList name={cookies.name} time={timeDiff} />}
 
         {isShow.button && (
           <StartButton>
