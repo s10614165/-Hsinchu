@@ -13,6 +13,8 @@ import inputImg from "@/assets/Input.png";
 import exclude from "@/assets/Exclude.png";
 import calculateTimeDifference from "@/Util/calculateTimeDifference.js";
 import parseTimeDifference from "@/Util/parseTimeDifferen";
+import useAddToGoogleSheet from "@/customHooks/useAddToGoogleSheet.jsx";
+import timeToMilliseconds from "@/Util/timeToMilliseconds.js";
 
 const Container = styled.div`
   width: 100%;
@@ -221,6 +223,7 @@ const GAME_STAGE_SHOW_STATES = {
     rank: false,
   },
   end: {
+    logo: true,
     titleContextImage: false,
     timeZone: true,
     input: false,
@@ -237,7 +240,7 @@ const GAME_STAGE_SHOW_STATES = {
     rank: false,
   },
   rank: {
-    logo: false,
+    logo: true,
     titleContextImage: false,
     timeZone: false,
     input: false,
@@ -270,16 +273,21 @@ const GameInterface = () => {
   const [name, setName] = useState("");
   const [timeDiff, setTimeDiff] = useState("00:00:00");
   const [isShow, setIsShow] = useState(GAME_STAGE_SHOW_STATES.start);
+  const { addData, loading, error } = useAddToGoogleSheet();
 
   const handleStartGame = () => {
     if (
       cookies[ROUTER_TIMER_NAME[route].start] !== undefined &&
       cookies[ROUTER_TIMER_NAME[route].end] !== undefined
     ) {
-      console.log(cookies.name);
-      console.log(cookies.UUID);
-      console.log(timeDiff);
-      setIsShow(GAME_STAGE_SHOW_STATES.rank);
+      console.log(timeToMilliseconds(timeDiff));
+      // addData({
+      //   UUID: cookies.UUID,
+      //   name: cookies.name,
+      //   route: route,
+      //   time:timeToMilliseconds( timeDiff),
+      // });
+      // setIsShow(GAME_STAGE_SHOW_STATES.rank);
       return;
     }
     if (cookies.name !== undefined) {
@@ -321,9 +329,7 @@ const GameInterface = () => {
   useEffect(() => {
     const startTime = cookies[ROUTER_TIMER_NAME[route]?.start];
     const endTime = cookies[ROUTER_TIMER_NAME[route]?.end];
-    console.log("IN rout useEffect");
-    console.log(endTime);
-    console.log(startTime);
+
     if (endTime !== undefined && startTime !== undefined) {
       setTimeDiff(calculateTimeDifference(startTime, endTime));
 
@@ -355,7 +361,7 @@ const GameInterface = () => {
       return () => clearInterval(timerId);
     }
   }, [cookies, route, gameStage]);
-
+  console.log(loading, error);
   return (
     <Container>
       <Header>

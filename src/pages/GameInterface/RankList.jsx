@@ -3,7 +3,7 @@ import styled from "styled-components";
 import playerRecord from "@/assets/playerRecord.png";
 import rankBorder from "@/assets/rankBorder.png";
 import rankTitle from "@/assets/rankTitle.png";
-
+import useGoogleSheet from "@/customHooks/useGoogleSheet";
 const Wrapper = styled.div`
   position: relative;
   width: 100%;
@@ -161,6 +161,8 @@ const leaderboardData = [
 ];
 
 const Leaderboard = ({ name, time }) => {
+  const { data, loading, error } = useGoogleSheet("sun!A1:Z10");
+  console.log(data);
   return (
     <Wrapper>
       <Title>排行榜</Title>
