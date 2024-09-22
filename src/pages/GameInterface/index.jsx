@@ -15,6 +15,7 @@ import calculateTimeDifference from "@/Util/calculateTimeDifference.js";
 import parseTimeDifference from "@/Util/parseTimeDifferen";
 import useAddToGoogleSheet from "@/customHooks/useAddToGoogleSheet.jsx";
 import timeToMilliseconds from "@/Util/timeToMilliseconds.js";
+import LoadingSpinner from "@/components/LoadingSpinner.jsx";
 
 const Container = styled.div`
   width: 100%;
@@ -25,6 +26,19 @@ const Container = styled.div`
   color: #fff;
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
+`;
+const ContainerForLoading = styled.div`
+  width: 100%;
+  min-height: 100vh;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background-color: #000000;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   box-sizing: border-box;
 `;
 
@@ -55,9 +69,17 @@ const Main = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   flex-grow: 1;
   width: 100%;
-  max-height: calc(75vh - 20px);
+  /* max-height: calc(75vh - 20px); */
+`;
+
+const LoadingWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px; // 給定一個固定高度
 `;
 
 const CharacterImage = styled.div`
@@ -130,13 +152,14 @@ const CustomButton = styled.button`
   cursor: pointer;
   color: transparent;
   font-size: 0;
+
   transition: transform 0.3s ease;
   background-image: ${({ gameStage }) =>
     gameStage === "start" ? `url(${gameStartImage})` : `url(${gameEndImage})`};
 
   width: clamp(150px, 30vw, 300px);
   height: calc(clamp(150px, 30vw, 300px) * (90 / 300));
-
+  display: ${({ isLoading }) => (isLoading ? "none" : "block")};
   aspect-ratio: 300 / 90;
 
   &:hover {
@@ -240,7 +263,7 @@ const GAME_STAGE_SHOW_STATES = {
     rank: false,
   },
   rank: {
-    logo: true,
+    logo: false,
     titleContextImage: false,
     timeZone: false,
     input: false,
@@ -273,21 +296,31 @@ const GameInterface = () => {
   const [name, setName] = useState("");
   const [timeDiff, setTimeDiff] = useState("00:00:00");
   const [isShow, setIsShow] = useState(GAME_STAGE_SHOW_STATES.start);
-  const { addData, loading, error } = useAddToGoogleSheet();
+  const { addData, loading, error, isSuc, reset } = useAddToGoogleSheet();
 
   const handleStartGame = () => {
     if (
       cookies[ROUTER_TIMER_NAME[route].start] !== undefined &&
-      cookies[ROUTER_TIMER_NAME[route].end] !== undefined
+      cookies[ROUTER_TIMER_NAME[route].end] === undefined &&
+      gameStage === "end"
     ) {
-      console.log(timeToMilliseconds(timeDiff));
-      // addData({
-      //   UUID: cookies.UUID,
-      //   name: cookies.name,
-      //   route: route,
-      //   time:timeToMilliseconds( timeDiff),
-      // });
-      // setIsShow(GAME_STAGE_SHOW_STATES.rank);
+      //game end
+      const now = new Date().toISOString();
+      setCookie(ROUTER_TIMER_NAME[route].end, now, { path: "/" });
+      const startTime = cookies[ROUTER_TIMER_NAME[route]?.start];
+      setTimeDiff(calculateTimeDifference(startTime, now));
+      console.log({
+        UUID: cookies.UUID,
+        name: cookies.name,
+        route: route,
+        time: timeToMilliseconds(calculateTimeDifference(startTime, now)),
+      });
+      addData({
+        UUID: cookies.UUID,
+        name: cookies.name,
+        route: route,
+        time: timeToMilliseconds(calculateTimeDifference(startTime, now)),
+      });
       return;
     }
     if (cookies.name !== undefined) {
@@ -301,6 +334,7 @@ const GameInterface = () => {
     if (name.trim() === "") {
       setName("請輸入暱稱");
     } else {
+      if (name === "請輸入暱稱") return;
       setCookie("name", name, { path: "/" });
       setCookie("UUID", uuidv4(), { path: "/" });
       setCookie(ROUTER_TIMER_NAME[route].start, new Date().toISOString(), {
@@ -311,6 +345,7 @@ const GameInterface = () => {
   };
 
   useEffect(() => {
+    console.log("in 1 Effect");
     if (gameStage === "start" && cookies.name !== undefined) {
       if (cookies[ROUTER_TIMER_NAME[route]?.start] === undefined) {
         setIsShow(GAME_STAGE_SHOW_STATES.nextRouter);
@@ -329,39 +364,60 @@ const GameInterface = () => {
   useEffect(() => {
     const startTime = cookies[ROUTER_TIMER_NAME[route]?.start];
     const endTime = cookies[ROUTER_TIMER_NAME[route]?.end];
-
+    console.log("in 2 Effect");
     if (endTime !== undefined && startTime !== undefined) {
       setTimeDiff(calculateTimeDifference(startTime, endTime));
 
       return;
     }
-    if (gameStage === "end" && endTime === undefined) {
-      const now = new Date().toISOString();
-      setCookie(ROUTER_TIMER_NAME[route].end, now, { path: "/" });
-      setTimeDiff(calculateTimeDifference(startTime, now));
-      // setIsShow(GAME_STAGE_SHOW_STATES.end);
-    } else if (
+
+    if (
       startTime !== undefined &&
       endTime === undefined &&
-      (gameStage === "start" || gameStage === "processing")
+      isShow.rank === false &&
+      loading === false
+      // &&
+      // (gameStage === "start" || gameStage === "processing")
     ) {
+      console.log("inTTTTT");
       const updateTimer = () => {
         const now = new Date().toISOString();
+
         setTimeDiff(calculateTimeDifference(startTime, now));
       };
 
-      setIsShow(
-        gameStage === "start"
-          ? GAME_STAGE_SHOW_STATES.enterName
-          : GAME_STAGE_SHOW_STATES.processing
-      );
-
       updateTimer();
       const timerId = setInterval(updateTimer, 1000);
+
+      if (gameStage === "start") {
+        setIsShow(GAME_STAGE_SHOW_STATES.enterName);
+      }
+      if (gameStage === "processing") {
+        setIsShow(GAME_STAGE_SHOW_STATES.processing);
+      }
+      if (gameStage === "end") {
+        setIsShow(GAME_STAGE_SHOW_STATES.end);
+      }
+
       return () => clearInterval(timerId);
     }
   }, [cookies, route, gameStage]);
-  console.log(loading, error);
+
+  useEffect(() => {
+    console.log(loading, error, isSuc);
+    if (error) {
+      alert("請重新嘗試一次");
+      reset();
+      return;
+    }
+    if (isSuc && !loading) {
+      console.log("成功！可以進入下一個遊戲階段");
+      setIsShow(GAME_STAGE_SHOW_STATES.rank);
+      // 重置狀態，為下一次操作做準備
+      reset();
+    }
+  }, [loading, isSuc, error]);
+
   return (
     <Container>
       <Header>
@@ -371,6 +427,7 @@ const GameInterface = () => {
           </Logo>
         )}
       </Header>
+
       <Main>
         {isShow.titleContextImage && (
           <CharacterImage>
@@ -400,7 +457,7 @@ const GameInterface = () => {
           <StyledName gameStage={gameStage}>{cookies.name}</StyledName>
         )}
 
-        {isShow.timeZone && (
+        {isShow.timeZone && loading === false && (
           <TimeExclude>
             <TimeExcludeImageStyle src={exclude} />
             <TimeDisplayWrapper>
@@ -410,10 +467,19 @@ const GameInterface = () => {
           </TimeExclude>
         )}
         {isShow.rank && <RankList name={cookies.name} time={timeDiff} />}
-
+        {loading && (
+          <LoadingWrapper>
+            <LoadingSpinner />
+          </LoadingWrapper>
+        )}
         {isShow.button && (
           <StartButton>
-            <CustomButton gameStage={gameStage} onClick={handleStartGame} />
+            <CustomButton
+              disabled={loading}
+              isLoading={loading}
+              gameStage={gameStage}
+              onClick={handleStartGame}
+            />
           </StartButton>
         )}
       </Main>

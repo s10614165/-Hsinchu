@@ -7,3 +7,4 @@ function timeToMilliseconds(timeString) {
 
   return totalMilliseconds;
 }
+export default timeToMilliseconds;
