@@ -84,7 +84,7 @@ const Title = styled.h2`
 const Table = styled.div`
   width: 100%;
   max-width: 960px;
-  height: clamp(0px, min(calc(100vw * 620 / 960), 620px), 620px);
+  height: clamp(0px, min(calc(100vw * 590 / 960), 590px), 590px);
   overflow-y: auto;
 
   /* Webkit scrollbar styles */
@@ -203,6 +203,7 @@ const HighlightedRow = styled(TableRow)`
   height: 40px;
   max-width: 95.5%;
   display: flex;
+  border:none;
   justify-content: space-between;
   z-index: 1;
 
@@ -225,9 +226,10 @@ const HighlightedRow = styled(TableRow)`
 `;
 
 const CloseText = styled.div`
-  position: fixed;
-  top: 10px;
-  right: 10px;
+  /* position: fixed;
+  bottom: 10px;
+  right: 50%; */
+  margin-top: 10px;
   background-color: black;
   color: #00ffff;
   padding: 10px;
@@ -327,7 +329,7 @@ const Leaderboard = ({ name, time }) => {
         <TableCell name>{name}</TableCell>
         <TableCell time>{s_timeDiff}</TableCell>
       </HighlightedRow>
-      <CloseText>按下右上角叉叉關閉</CloseText>
+      <CloseText>按畫面右上角X按鈕關閉排行榜</CloseText>
     </Wrapper>
   );
 };
