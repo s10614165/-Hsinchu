@@ -224,6 +224,19 @@ const HighlightedRow = styled(TableRow)`
   }
 `;
 
+const CloseText = styled.div`
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background-color: black;
+  color: #00ffff;
+  padding: 10px;
+  font-size: clamp(8px, 5vw, 32px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 const ROUTER_TIMER_NAME = {
   sun: { start: "sunStartTime", end: "sunEndTime" },
   water: { start: "waterStartTime", end: "waterEndTime" },
@@ -314,6 +327,7 @@ const Leaderboard = ({ name, time }) => {
         <TableCell name>{name}</TableCell>
         <TableCell time>{s_timeDiff}</TableCell>
       </HighlightedRow>
+      <CloseText>按下右上角叉叉關閉</CloseText>
     </Wrapper>
   );
 };

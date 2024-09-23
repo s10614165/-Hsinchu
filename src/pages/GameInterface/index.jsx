@@ -267,7 +267,7 @@ const GAME_STAGE_SHOW_STATES = {
     titleContextImage: false,
     timeZone: false,
     input: false,
-    button: true,
+    button: false,
     name: false,
     rank: true,
   },
@@ -301,7 +301,7 @@ const GameInterface = () => {
   const handleStartGame = () => {
     if (
       cookies[ROUTER_TIMER_NAME[route].start] !== undefined &&
-      cookies[ROUTER_TIMER_NAME[route].end] === undefined &&
+      // cookies[ROUTER_TIMER_NAME[route].end] === undefined &&
       gameStage === "end"
     ) {
       //game end
@@ -323,6 +323,10 @@ const GameInterface = () => {
       });
       return;
     }
+    console.log(cookies[ROUTER_TIMER_NAME[route].end])
+    console.log("通過了")
+
+    // if(cookies[ROUTER_TIMER_NAME[route].end])
     if (cookies.name !== undefined) {
       setCookie(ROUTER_TIMER_NAME[route].start, new Date().toISOString(), {
         path: "/",
@@ -410,7 +414,7 @@ const GameInterface = () => {
       reset();
       return;
     }
-    if (isSuc && !loading) {
+    if (isSuc && !loading && error === null) {
       console.log("成功！可以進入下一個遊戲階段");
       setIsShow(GAME_STAGE_SHOW_STATES.rank);
       // 重置狀態，為下一次操作做準備

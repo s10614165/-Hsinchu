@@ -12,9 +12,10 @@ const useAddToGoogleSheet = (sheetName = "總表") => {
     setIsSuc(false);
     try {
       //我的
-      const url = `https://script.google.com/macros/s/AKfycbxi0phq3tlKJS2CvtnvMHJL6Otb6fsod_slkFM0A03XsbqE6jH8MNRZPm77kFRCfOVzFw/exec`;
+      // const url = `https://script.google.com/macros/s/AKfycbxi0phq3tlKJS2CvtnvMHJL6Otb6fsod_slkFM0A03XsbqE6jH8MNRZPm77kFRCfOVzFw/exec`;
       //公司
-      // const url = `https://script.google.com/macros/s/AKfycbz2DpDSG10YTHMy6F2FlPTyXxpxO_awHqMizMXHF_ULW-5TYcgVw_4eUxOJogPhZSvl/exec`;
+      const url = `https://script.google.com/macros/s/AKfycbxXN9JnJ7wTiOUO8BJWb8G0DiG3a3zrkJwETBsSnDTAins-5qLB_pzKrxpfE_Tz6PEs/exec`;
+      // const url = `https://script.google.com/macros/s/AKfycbxXN9JnJ7wTiOUO8BJW8G0DiG3a3zrkJwETBsSnDTAins-5qLB_pzKrxpfE_Tz6PEs/exec`;
 
       const response = await axios.get(url, {
         params: {
