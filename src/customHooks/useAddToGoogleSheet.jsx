@@ -1,6 +1,8 @@
 import { useState } from "react";
 import axios from "axios";
 
+const GOOGLE_SCRIPT_URL = import.meta.env.VITE_GOOGLE_SCRIPT_URL;
+
 const useAddToGoogleSheet = (sheetName = "總表") => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -11,13 +13,11 @@ const useAddToGoogleSheet = (sheetName = "總表") => {
     setError(null);
     setIsSuc(false);
     try {
-      //我的
-      // const url = `https://script.google.com/macros/s/AKfycbxi0phq3tlKJS2CvtnvMHJL6Otb6fsod_slkFM0A03XsbqE6jH8MNRZPm77kFRCfOVzFw/exec`;
-      //公司
-      const url = `https://script.google.com/macros/s/AKfycbxXN9JnJ7wTiOUO8BJWb8G0DiG3a3zrkJwETBsSnDTAins-5qLB_pzKrxpfE_Tz6PEs/exec`;
-      // const url = `https://script.google.com/macros/s/AKfycbxXN9JnJ7wTiOUO8BJW8G0DiG3a3zrkJwETBsSnDTAins-5qLB_pzKrxpfE_Tz6PEs/exec`;
+      if (!GOOGLE_SCRIPT_URL) {
+        throw new Error("Google Script URL is not defined");
+      }
 
-      const response = await axios.get(url, {
+      const response = await axios.get(GOOGLE_SCRIPT_URL, {
         params: {
           UUID: data.UUID,
           name: data.name,
