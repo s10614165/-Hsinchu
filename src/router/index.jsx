@@ -5,8 +5,8 @@ import EnterName from "@/pages/GameInterface/";
 
 
 const PageRoutes = () => (
-  <Routes>
-    <Route path="/" element={<EnterName />} />
+  <Routes >
+    <Route path="/larry/energy/dist/" element={<EnterName />} />
   </Routes>
 );
 
