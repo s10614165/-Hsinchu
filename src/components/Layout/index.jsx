@@ -30,7 +30,7 @@ const Layout = () => {
   const location = useLocation();
 
   const getBackgroundImage = () => {
-    return location.pathname === "/larry/energy/dist/map"
+    return location.pathname === "/chutaxdalp/map"
       ? map_bg_desktop
       : landing_bg;
   };

@@ -358,9 +358,9 @@ const Museum = () => {
           }
         }
       }
-      navigate("/larry/energy/dist/map");
+      navigate("/chutaxdalp/map");
     } else {
-      navigate("/larry/energy/dist/map");
+      navigate("/chutaxdalp/map");
     }
   };
 

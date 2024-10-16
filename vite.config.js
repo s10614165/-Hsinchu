@@ -5,7 +5,7 @@ import react from "@vitejs/plugin-react";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-console.log(__dirname)
+console.log(__dirname);
 
 export default defineConfig({
   resolve: {
@@ -14,5 +14,5 @@ export default defineConfig({
     },
   },
   plugins: [react()],
-  base: "/larry/energy/dist/",
+  base: "/chutaxdalp/",
 });

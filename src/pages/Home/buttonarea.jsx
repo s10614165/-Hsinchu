@@ -139,7 +139,7 @@ const ButtonArea = () => {
     setCurrentGroup(groupName);
 
     // 跳轉到指定路徑
-    navigate("/larry/energy/dist/map");
+    navigate("/chutaxdalp/map");
   };
 
   return (

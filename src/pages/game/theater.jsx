@@ -184,9 +184,9 @@ const Theater = () => {
           }
         }
       }
-      navigate("/larry/energy/dist/map");
+      navigate("/chutaxdalp/map");
     } else {
-      navigate("/larry/energy/dist/map");
+      navigate("/chutaxdalp/map");
     }
   };
   const getYouTubeEmbedUrl = (url) => {

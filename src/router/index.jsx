@@ -10,10 +10,10 @@ import Museum from "@/pages/game/museum.jsx";
 const PageRoutes = () => (
   <Routes>
     <Route element={<Layout />}>
-      <Route path="/larry/energy/dist/" element={<Home />} />
-      <Route path="/larry/energy/dist/map" element={<Map />} />
-      <Route path="/larry/energy/dist/theater" element={<Theater />} />
-      <Route path="/larry/energy/dist/museum" element={<Museum />} />
+      <Route path="/chutaxdalp/" element={<Home />} />
+      <Route path="/chutaxdalp/map" element={<Map />} />
+      <Route path="/chutaxdalp/theater" element={<Theater />} />
+      <Route path="/chutaxdalp/museum" element={<Museum />} />
     </Route>
   </Routes>
 );

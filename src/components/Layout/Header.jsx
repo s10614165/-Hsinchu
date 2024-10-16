@@ -78,7 +78,7 @@ const Header = () => {
   const navigate = useNavigate();
 
   const handleHeaderClick = () => {
-    navigate("/larry/energy/dist/");
+    navigate("/chutaxdalp/");
   };
   const handleIconClick = () => {
     window.open("https://www.facebook.com/chutax", "_blank");
