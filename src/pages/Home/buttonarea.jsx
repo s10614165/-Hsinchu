@@ -9,9 +9,29 @@ import btn_03 from "@/assets/btn_03.png";
 
 import btn_04 from "@/assets/btn_04.png";
 import img_date_desktop from "@/assets/img_date_desktop.png";
+import btn_event_guideline from "@/assets/btn_event_guideline.svg";
+import eventBoard from "@/assets/eventBoard.png";
 import bannerImg from "@/assets/banner1.png";
 import { useCookies } from "react-cookie";
 import { useState } from "react";
+import logo from "@/assets/logo2.svg";
+import CustomModal from "@/components/CustomModal";
+
+const ImgfilmExcludeImageStyleII = styled.img`
+  width: 55%;
+  height: 55%;
+  object-fit: contain;
+  margin-top: 40px;
+
+  @media (max-width: 480px) {
+    width: 80%;
+    height: 80%;
+
+    /* width: 175px; */
+    /* height: 175px; */
+    /* flex: 1; */
+  }
+`;
 
 const CustomButton = styled.button`
   background-size: 100% 100%;
@@ -21,30 +41,44 @@ const CustomButton = styled.button`
   cursor: pointer;
   color: transparent;
   font-size: 0;
-  /* aspect-ratio: 392/367; */
   transition: transform 0.3s ease;
   background-image: ${({ src }) => `url(${src})`};
-
   width: 292px;
   height: 267px;
   display: ${({ isLoading }) => (isLoading ? "none" : "block")};
-  /* aspect-ratio: 300 / 90; */
-
-  /* &:hover {
-    transform: scale(1.05);
-  }
-
-  &:active {
-    transform: scale(0.95);
-  } */
-
   @media (max-width: 768px) {
     max-height: 60vh;
   }
-
   @media (max-width: 480px) {
     width: 171px;
     height: 157px;
+    /* flex: 1; */
+  }
+`;
+const CustomEvenButton = styled.button`
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: left;
+  /* transform: translate(0%, 0%); */
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  color: transparent;
+  font-size: 0;
+  transition: transform 0.3s ease;
+  background-image: ${({ src }) => `url(${src})`};
+  width: 292px;
+  height: 267px;
+  display: ${({ isLoading }) => (isLoading ? "none" : "block")};
+  @media (max-width: 768px) {
+    /* max-height: 60vh; */
+  }
+  @media (max-width: 480px) {
+    transform: translate(-20%, 0%);
+
+    width: 200px;
+    height: 900px;
+    align-self: flex-start;
     /* flex: 1; */
   }
 `;
@@ -70,28 +104,21 @@ const ButtonContainer = styled.div`
 `;
 
 const ButtonAreaWarp = styled.div`
+  /* background-color: green; */
   display: flex;
   width: 100%;
-  /* background-color: green; */
   height: 100%;
   flex-direction: column;
   justify-content: end;
   align-items: center;
   /* margin-top: calc(00px); */
   z-index: 3;
-
   @media (max-width: 480px) {
-    background-image: url(${bannerImg});
-    background-size: 100% 342px;
-    aspect-ratio: 149/342;
-    background-position: top center;
-    background-repeat: no-repeat;
-    /* align-items: center; */
-    /* justify-content: start; */
-    justify-content: center;
-    /* padding-top: 20px; */
-    /* padding-bottom: 10px; */
-    /* height: 100vh; 使用視窗高度 */
+    /* padding-top: ; */
+
+    /* width: 175px; */
+    /* height: 175px; */
+    /* flex: 1; */
   }
 `;
 
@@ -105,10 +132,21 @@ const TimeImageStyle = styled.img`
     /* height: 100vh; 使用視窗高度 */
   }
 `;
-
+const Container = styled.div`
+  width: 70%;
+  height: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @media (max-width: 480px) {
+    width: 80%;
+    flex-direction: column;
+  }
+`;
 const ButtonArea = () => {
   const navigate = useNavigate();
   const [currentGroup, setCurrentGroup] = useState(null);
+  const [s_isOpen, set_s_isOpen] = useState(false);
 
   const group = [0, 1, 2, 3];
   // const group = [
@@ -127,14 +165,25 @@ const ButtonArea = () => {
 
   const handleButtonClick = (groupName) => {
     console.log(groupName);
-    localStorage.setItem(`currentGroup`, groupName);
 
-    // 檢查 localStorage 是否已存在該 group
-    if (!localStorage.getItem(groupName)) {
-      // 如果不存在，則設置 localStorage
-      localStorage.setItem(`${groupName}`, JSON.stringify(initGameStage));
+    if (!localStorage.getItem(`currentGroup`)) {
+      localStorage.setItem(
+        `currentGroup`,
+        JSON.stringify({
+          group: groupName,
+          gameStage: [
+            initGameStage,
+            initGameStage,
+            initGameStage,
+            initGameStage,
+          ],
+        })
+      );
+    } else {
+      const parse = JSON.parse(localStorage.getItem(`currentGroup`));
+      const newSet = { ...parse, group: groupName };
+      localStorage.setItem(`currentGroup`, JSON.stringify(newSet));
     }
-
     // 設置當前的 group
     setCurrentGroup(groupName);
 
@@ -144,16 +193,18 @@ const ButtonArea = () => {
 
   return (
     <ButtonAreaWarp>
-      <div
-        style={{
-          width: "90%",
-          height: "10%",
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
+      <ImgfilmExcludeImageStyleII src={logo} alt="Banner" />
+
+      <Container>
+        <CustomEvenButton
+          onClick={() => {
+            set_s_isOpen(true);
+          }}
+          src={btn_event_guideline}
+          alt="event"
+        />
         <TimeImageStyle src={img_date_desktop} alt="Date" />
-      </div>
+      </Container>
       <ButtonContainer>
         {group.map((groupName, index) => (
           <CustomButton
@@ -163,6 +214,16 @@ const ButtonArea = () => {
           />
         ))}
       </ButtonContainer>
+
+      <CustomModal
+        event={true}
+        isOpen={s_isOpen}
+        onClose={() => {
+          set_s_isOpen(false);
+        }}
+        imageSrc={eventBoard}
+        useType="map"
+      />
     </ButtonAreaWarp>
   );
 };

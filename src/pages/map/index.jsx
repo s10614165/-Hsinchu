@@ -197,22 +197,17 @@ const Map = () => {
 
   useEffect(() => {
     const storedCurrentGroup = localStorage.getItem("currentGroup");
-    if (storedCurrentGroup) {
-      set_s_CurrentGroup(storedCurrentGroup);
-      const storedGroupActivities = localStorage.getItem(storedCurrentGroup);
-      if (storedGroupActivities) {
-        try {
-          const parsedGroupActivities = JSON.parse(storedGroupActivities);
-          set_s_GroupActivities(parsedGroupActivities);
-        } catch (error) {
-          console.error("Error parsing group activities:", error);
-        }
-      }
+    const parse = JSON.parse(storedCurrentGroup);
+    console.log(parse);
+    if (Object.keys(parse).length > 0) {
+      set_s_CurrentGroup(parse.group);
+      set_s_GroupActivities(parse.gameStage[parse.group]);
     }
   }, []);
 
   const handleLockButtonClick = () => {
     const isLocked = Object.values(s_groupActivities).includes(0);
+
     if (isLocked) {
       set_s_isOpen(true);
     } else {
@@ -244,7 +239,11 @@ const Map = () => {
       <CustomButton
         className="game"
         src={btn_game}
-        onClick={() => navigate("/chutaxdalp/theater")}
+        onClick={() => {
+          console.log(gameurl[s_currentGroup]);
+          window.location.href = gameurl[s_currentGroup];
+          // navigate("/chutaxdalp/theater");
+        }}
         style={{ top: "20%", left: "35%" }}
       />
       <CustomButtonBack

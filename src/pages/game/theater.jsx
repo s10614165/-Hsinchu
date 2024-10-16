@@ -152,7 +152,7 @@ const Theater = () => {
   const [countdown, setCountdown] = useState(30);
   const [isTimeUp, setIsTimeUp] = useState(false);
   const navigate = useNavigate();
-  const storedCurrentGroup = localStorage.getItem("currentGroup");
+  const storedCurrentGroup = JSON.parse(localStorage.getItem("currentGroup"));
   const [s_isOpen, set_s_isOpen] = useState(false);
 
   useEffect(() => {
@@ -168,24 +168,18 @@ const Theater = () => {
   const handleButtonClick = () => {
     if (isTimeUp) {
       const storedCurrentGroup = localStorage.getItem("currentGroup");
-      if (storedCurrentGroup) {
-        const storedGroupActivities = localStorage.getItem(storedCurrentGroup);
-        if (storedGroupActivities) {
-          try {
-            const parsedGroupActivities = JSON.parse(storedGroupActivities);
-            const updatedGroupActivities = {
-              ...parsedGroupActivities,
-              theater: 1,
-            };
-            localStorage.setItem(
-              storedCurrentGroup,
-              JSON.stringify(updatedGroupActivities)
-            );
-          } catch (error) {
-            console.error("Error parsing group activities:", error);
-          }
-        }
+      const parse = JSON.parse(storedCurrentGroup);
+      console.log(parse);
+      if (Object.keys(parse).length > 0) {
+        const newStage = parse.gameStage.map((item, index) => {
+          return index === parse.group ? { ...item, theater: 1 } : { ...item };
+        });
+        localStorage.setItem(
+          `currentGroup`,
+          JSON.stringify({ ...parse, gameStage: newStage })
+        );
       }
+
       navigate("/chutaxdalp/map");
     } else {
       navigate("/chutaxdalp/map");
@@ -221,7 +215,7 @@ const Theater = () => {
         <ContentWrapper>
           <VideoBox>
             <iframe
-              src={getYouTubeEmbedUrl(videioUrl[storedCurrentGroup])}
+              src={getYouTubeEmbedUrl(videioUrl[storedCurrentGroup.group])}
               title="YouTube video player"
               frameborder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

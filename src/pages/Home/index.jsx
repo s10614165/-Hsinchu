@@ -1,18 +1,12 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { useCookies } from "react-cookie";
+
 import { useLocation } from "react-router-dom";
-import { v4 as uuidv4 } from "uuid";
-import RankList from "./RankList.jsx";
-import titleImg from "@/assets/Title.png";
-import startContext from "@/assets/startContext.png";
-import startTime from "@/assets/startTime.png";
-import gameEndImage from "@/assets/gameEnd.png";
-import inputImg from "@/assets/Input.png";
-import exclude from "@/assets/Exclude.png";
-import calculateTimeDifference from "@/Util/calculateTimeDifference.js";
+
 import Banner from "./banner.jsx";
 import ButtonArea from "./buttonarea.jsx";
+import banner_desk from "@/assets/banner_desk.png";
+import banner_mobile from "@/assets/banner_mobile.png";
 
 const StyledContainer = styled.div`
   /* background-color: red; */
@@ -20,27 +14,22 @@ const StyledContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: end;
-
+  background-image: url(${banner_desk});
+  background-repeat: no-repeat;
   @media (max-width: 768px) {
     /* background-color: blue; */
     justify-content: center;
   }
 
   @media (max-width: 480px) {
-    /* background-color: green; */
-    justify-content: end;
+    background: url(${banner_mobile}) top/contain no-repeat;
   }
 `;
 
 const Home = () => {
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const route = queryParams.get("route");
-  const gameStage = queryParams.get("gameStage");
-
   return (
     <StyledContainer>
-      <Banner />
+      {/* <Banner /> */}
       <ButtonArea />
     </StyledContainer>
   );

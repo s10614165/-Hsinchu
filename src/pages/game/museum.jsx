@@ -303,7 +303,7 @@ const Museum = () => {
   const [countdown, setCountdown] = useState(30);
   const [isTimeUp, setIsTimeUp] = useState(false);
   const navigate = useNavigate();
-  const storedCurrentGroup = localStorage.getItem("currentGroup");
+  const storedCurrentGroup = JSON.parse(localStorage.getItem("currentGroup"));
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [images, setImages] = useState([]);
 
@@ -320,8 +320,8 @@ const Museum = () => {
   }, [countdown]);
 
   useEffect(() => {
-    if (storedCurrentGroup) {
-      const groupImages = imageUrl[storedCurrentGroup];
+    if (Object.keys(storedCurrentGroup).length > 0) {
+      const groupImages = imageUrl[storedCurrentGroup.group];
       if (groupImages) {
         // Load only the first image initially
         setImages([groupImages[0]]);
@@ -357,24 +357,20 @@ const Museum = () => {
   const handleButtonClick = () => {
     if (isTimeUp) {
       const storedCurrentGroup = localStorage.getItem("currentGroup");
-      if (storedCurrentGroup) {
-        const storedGroupActivities = localStorage.getItem(storedCurrentGroup);
-        if (storedGroupActivities) {
-          try {
-            const parsedGroupActivities = JSON.parse(storedGroupActivities);
-            const updatedGroupActivities = {
-              ...parsedGroupActivities,
-              museum: 1,
-            };
-            localStorage.setItem(
-              storedCurrentGroup,
-              JSON.stringify(updatedGroupActivities)
-            );
-          } catch (error) {
-            console.error("Error parsing group activities:", error);
-          }
-        }
+      const parse = JSON.parse(storedCurrentGroup);
+      console.log(parse);
+      if (Object.keys(parse).length > 0) {
+        const newStage = parse.gameStage.map((item, index) => {
+          return index === parse.group
+            ? { ...item, artGallery: 1 }
+            : { ...item };
+        });
+        localStorage.setItem(
+          `currentGroup`,
+          JSON.stringify({ ...parse, gameStage: newStage })
+        );
       }
+
       navigate("/chutaxdalp/map");
     } else {
       navigate("/chutaxdalp/map");

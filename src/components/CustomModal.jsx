@@ -18,8 +18,8 @@ const ModalOverlay = styled.div`
 
 const ModalContent = styled.div`
   position: relative;
-  width: 50%;
-  height: 50%;
+  width: ${({ event }) => (event ? "500%" : "50%")};
+  height: ${({ event }) => (event ? "500%" : "50%")};
   max-width: 800px;
   max-height: 800px;
   display: flex;
@@ -72,12 +72,13 @@ const ImageModal = ({
   onClose,
   imageSrc = "map_label_popup.png",
   useType = "map",
+  event = false,
 }) => {
   if (!isOpen) return null;
-
+  console.log(event);
   return (
     <ModalOverlay onClick={onClose}>
-      <ModalContent>
+      <ModalContent event={event}>
         <ImageWrapper>
           <StyledImage src={imageSrc} alt="Modal content" />
         </ImageWrapper>
