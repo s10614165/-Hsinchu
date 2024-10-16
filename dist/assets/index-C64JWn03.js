@@ -93,8 +93,8 @@ Error generating stack: `+i.message+`
   }
 
   @media (max-width: 480px) {
-    width: 65px;
-    height: 65px;
+    width: 39px;
+    height: 39px;
   }
 `,Cg=R.button`
   background-size: 100% 100%;
@@ -117,8 +117,8 @@ Error generating stack: `+i.message+`
     transform: scale(0.95);
   }
   @media (max-width: 480px) {
-    width: 328px;
-    height: 65px;
+    width: 209px;
+    height: 41px;
   }
 `,Eg=R.header`
   /* background-color: blue; */
@@ -470,48 +470,53 @@ Error generating stack: `+i.message+`
     transform: translate(-50%, -50%);
   }
 `,x1=R.div`
-  /* background-color: blue; */
   position: absolute;
   top: 0;
   right: 0;
-  width: 30%;
-  height: 30vh;
+  width: 40%;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: start;
   align-items: center;
-  /* padding: 10px; */
   box-sizing: border-box;
+  overflow: hidden; // Add this to prevent overflow
 
   @media (max-width: 480px) {
-    height: 20vh;
-    width: 50%;
+    height: 35vh;
+    width: 40%;
+    /* right: 10%; */
   }
 `,w1=R.img`
-  max-width: min(400px, 100%);
-  min-width: 242px;
-  width: 100%;
-  height: auto;
-  /* background-color: #fff; */
-  /* max-height: min(474px, 45%); */
-  /* min-height: 170px; */
-  /* object-fit: cover; */
+  /* max-width: 100%; */
+  width: 375px;
+  height: 274px;
+  max-height: 75%;
+  /* object-fit: contain; */
+
   @media (max-width: 480px) {
-    width: 500px;
-    height: 20vh;
+    max-width: 100%;
+    max-height: 40vh;
+    width: 275px;
+    height: 274px;
   }
 `,S1=R.img`
-  max-width: min(441px, 100%);
-  min-width: 150px;
-  /* width: 100%; */
+  max-width: 100%;
+  width: auto;
   height: auto;
+  max-height: 45%;
+  object-fit: contain;
   background-position: right;
-  /* max-height: min(200px, 45%); */
-  /* min-height: 170px; */
-  /* object-fit: contain; */
+  width: 275px;
+  height: 174px;
+  /* margin-top: -40px; */
+
   @media (max-width: 480px) {
-    width: 50px;
-    height: 10vh;
+    max-width: 100%;
+    max-height: 10vh;
+    margin-top: -40px;
+    width: 140px;
+    height: 50px;
   }
 `,Ha={0:"https://zoustec.ddns.net/ryan/ePlay/?GroupID=A",1:"https://zoustec.ddns.net/ryan/ePlay/?GroupID=B",2:"https://zoustec.ddns.net/ryan/ePlay/?GroupID=C",3:"https://zoustec.ddns.net/ryan/ePlay/?GroupID=D"},k1={0:"https://www.chutax.gov.tw/Active_ReadAgree.aspx?n=397&ss=A08360D6FCAB8088&t=22E7C1255BF33664A9DE064055F49809",1:"https://www.chutax.gov.tw/Active_ReadAgree.aspx?n=397&ss=A08360D6FCAB8088&t=22E7C1255BF33664A9DE064055F49809",2:"https://www.chutax.gov.tw/Active_ReadAgree.aspx?n=397&ss=F00646E53B749D5A&t=22E7C1255BF33664A9DE064055F49809",3:"https://www.chutax.gov.tw/Active_ReadAgree.aspx?n=397&ss=2FFB87952DB5BA15&t=22E7C1255BF33664A9DE064055F49809"},C1={0:d1,1:f1,2:p1,3:h1},E1=()=>{const[e,t]=_.useState(""),[n,r]=_.useState({}),[o,i]=_.useState(!1),l=Vr();_.useEffect(()=>{const s=localStorage.getItem("currentGroup"),a=JSON.parse(s);console.log(a),Object.keys(a).length>0&&(t(a.group),r(a.gameStage[a.group]))},[]);const u=()=>{Object.values(n).includes(0)?i(!0):(console.log("All activities completed, proceed to next step"),window.open(k1[e]))};return P.jsxs(g1,{children:[P.jsxs(x1,{children:[P.jsx(w1,{src:m1,alt:"Logo"}),P.jsx(S1,{src:C1[e],alt:"Group Image"})]}),P.jsx(v1,{isLocked:Object.values(n).includes(0),onClick:u}),P.jsx(yr,{src:i1,onClick:()=>l("/chutaxdalp/museum"),style:{top:"35%",left:"50%"}}),P.jsx(yr,{src:l1,onClick:()=>l("/chutaxdalp/theater"),style:{top:"55%",left:"55%"}}),P.jsx(yr,{className:"game",src:u1,onClick:()=>{console.log(Ha[e]),window.location.href=Ha[e]},style:{top:"20%",left:"35%"}}),P.jsx(y1,{src:s1,onClick:()=>l("/chutaxdalp/")}),P.jsx(Ti,{isOpen:o,onClose:()=>i(!1),imageSrc:a1,useType:"map"})]})},Wf="/chutaxdalp/assets/btn_backtomap_desktop-DFbKP46q.png",_1="/chutaxdalp/assets/theater_label_desktop-COznQFap.png",P1="/chutaxdalp/assets/theater_label_mobile-CAuUdcu4.png",Qf="/chutaxdalp/assets/img_mission_complete-CcUib-Cv.png",N1="/chutaxdalp/assets/popup_theater-JmDa5_rB.png",A1={0:"https://youtu.be/kIS7D-Jm55E?si=-93y75MFEREnUHhP",1:"https://youtu.be/8ovS03EfORU?si=SXy3ex9LxxlWajc_",2:"https://youtu.be/bn7DlPLA2dA?si=GtuCwRqMnXjNtJAY",3:"https://youtu.be/fdW0xHdpB74?si=dFx0nRN_8xjokBK2"},z1=R.button`
   background-size: 100% 100%;
