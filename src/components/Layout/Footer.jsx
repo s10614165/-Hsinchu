@@ -2,10 +2,11 @@ import React from "react";
 import styled from "styled-components";
 
 const CustomFooter = styled.footer`
-  background-color: red;
+  /* background-color: red; */
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 10px 0px;
 `;
 
 const Footer = () => {

@@ -6,7 +6,6 @@ import playerRecord from "@/assets/playerRecord.png";
 import rankBorder from "@/assets/rankBorder.png";
 import rankTitle from "@/assets/rankTitle.png";
 import rankBorderIndex from "@/assets/rankBorderIndex.png";
-import useGoogleSheet from "@/customHooks/useGoogleSheet";
 import millisecondsToTime from "../../Util/millisecondsToTime";
 import calculateTimeDifference from "@/Util/calculateTimeDifference.js";
 import timeToMilliseconds from "@/Util/timeToMilliseconds.js";
@@ -203,7 +202,7 @@ const HighlightedRow = styled(TableRow)`
   height: 40px;
   max-width: 95.5%;
   display: flex;
-  border:none;
+  border: none;
   justify-content: space-between;
   z-index: 1;
 
@@ -265,7 +264,6 @@ const Leaderboard = ({ name, time }) => {
   const route = queryParams.get("route");
   const [cookies, setCookie, removeCookie] = useCookies(COOKIE_NAMES);
 
-  const { data, loading, error } = useGoogleSheet(`${route}!A1:D21`);
   const startTime = cookies[ROUTER_TIMER_NAME[route]?.start];
   const endTime = cookies[ROUTER_TIMER_NAME[route]?.end];
 

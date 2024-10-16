@@ -1,17 +1,48 @@
+// Layout.jsx
 import React from "react";
+import styled from "styled-components";
+import { useLocation, Outlet } from "react-router-dom";
+import landing_bg from "@/assets/landing_bg.png";
+import map_bg_desktop from "@/assets/map_bg_desktop.png";
 
 import Header from "./Header";
 import Footer from "./Footer";
 
-const Layout = ({ children }) => {
-  return (
-    <div className="layout">
-      {/* 这里是你的固定Header内容 */}
-      <Header />
+const LayoutWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  background-image: ${({ backgroundImage }) => `url(${backgroundImage})`};
+  background-size: cover;
+  background-position: center;
+`;
 
-      <main className="content">{children}</main>
+const Content = styled.main`
+  flex: 1;
+  overflow-y: auto;
+  /* padding: 0rem 1rem; */
+  box-sizing: border-box;
+  position: relative; // 添加相對定位
+`;
+
+const Layout = () => {
+  const location = useLocation();
+
+  const getBackgroundImage = () => {
+    return location.pathname === "/larry/energy/dist/map"
+      ? map_bg_desktop
+      : landing_bg;
+  };
+
+  return (
+    <LayoutWrapper backgroundImage={getBackgroundImage()}>
+      <Header />
+      <Content>
+        <Outlet />
+      </Content>
       <Footer />
-    </div>
+    </LayoutWrapper>
   );
 };
 
