@@ -107,7 +107,9 @@ const CustomButton = styled.button`
   font-size: 0;
   transition: transform 0.3s ease;
   background-image: ${({ src }) => `url(${src})`};
-  margin-top: 30px;
+  /* margin-top: 45px; */
+  margin-top: 20px;
+
   width: 270px;
   height: 80px;
   display: ${({ isLoading }) => (isLoading ? "none" : "block")};
@@ -130,8 +132,8 @@ const StyledContainer = styled.div`
   justify-content: center;
   gap: 10px;
   width: 90%;
-  min-height: 80vh; // 改為 100vh 以確保全屏高度
-  padding: 90px 20px 40px; // 增加頂部 padding 為 TitleImage 留出空間
+  min-height: 82.5vh; // 改為 100vh 以確保全屏高度
+  padding: 90px 20px 0px; // 增加頂部 padding 為 TitleImage 留出空間
   box-sizing: border-box;
   background-image: url(${museum_label_desktop});
   background-size: 100% 100%;
@@ -155,7 +157,7 @@ const ContentWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  max-width: 600px;
+  max-width: 800px;
   margin: 0 auto;
   @media (max-width: 480px) {
     width: 90%;
@@ -171,6 +173,20 @@ const CountdownText = styled.p`
   margin-bottom: 15px;
   text-align: center;
   align-self: flex-end;
+  &.countD {
+    top: 10%;
+    right: 5%;
+    @media (max-width: 480px) {
+      top: 5%;
+      right: 5%;
+    }
+
+    img {
+      width: 70px;
+      height: 70px;
+      // 如果需要，可以在这里添加其他样式
+    }
+  }
   @media (max-width: 768px) {
     font-size: 22px;
     margin-bottom: 12px;
@@ -178,17 +194,18 @@ const CountdownText = styled.p`
 
   @media (max-width: 480px) {
     font-size: 20px;
-    margin-bottom: 10px;
+    /* margin-bottom: 5px; */
     /* top: 5%;
     right: 5%; */
   }
 `;
 
 const CarouselContainer = styled.div`
+  /* background: red; */
   position: relative;
   width: 100%;
-  max-width: 600px;
-  height: 400px;
+  max-width: 740px;
+  height: 490px;
   overflow: hidden;
 `;
 
@@ -368,7 +385,7 @@ const Museum = () => {
     <CenteredWrapper>
       <StyledContainer>
         {/* 你的現有內容 */}
-        <CountdownText>
+        <CountdownText className={isTimeUp ? "countD" : ""}>
           {isTimeUp ? (
             <img
               style={{ width: "70px", height: "70px" }}

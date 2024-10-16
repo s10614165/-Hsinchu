@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
 // 導入所有必要的圖片資源
-import btn_lottery_disable from "@/assets/btn_lottery_disable.svg";
+import btn_lottery_disable from "@/assets/btn_lottery_disable.png";
 import btn_lottery_normal from "@/assets/btn_lottery_normal.svg";
 import btn_museum from "@/assets/btn_museum.svg";
 import btn_theater from "@/assets/btn_theater.svg";
@@ -15,12 +15,12 @@ import map_tag_01 from "@/assets/map_tag_01.png";
 import map_tag_02 from "@/assets/map_tag_02.png";
 import map_tag_03 from "@/assets/map_tag_03.png";
 import map_tag_04 from "@/assets/map_tag_04.png";
-import logo from "@/assets/logo.png";
+import logo from "@/assets/logo1.svg";
 
 import CustomModal from "@/components/CustomModal";
 
 const ContentWrapper = styled.div`
-  background-color: red;
+  /* background-color: red; */
   position: relative;
   width: 100%;
   height: 100vh;
@@ -30,10 +30,10 @@ const ContentWrapper = styled.div`
   background-repeat: no-repeat;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: end;
   justify-content: center;
   @media (max-width: 480px) {
-    height: 80vh;
+    height: 90vh;
   }
 `;
 
@@ -55,6 +55,18 @@ const CustomButton = styled.button`
   max-height: 168px;
   transform: translate(15%, 0%);
 
+  &.game {
+    width: 35%;
+    /* transform: scale(1.5); // 放大 game 按鈕 */
+    @media (max-width: 480px) {
+      width: 95%;
+      transform: translate(0%, 85%) scale(1.3); // 保持放大效果並應用移動變換
+      padding-bottom: 0%;
+      min-width: 103px;
+      min-height: 94px;
+    }
+  }
+
   @media (max-width: 768px) {
     width: 20%;
     padding-bottom: 20%;
@@ -71,13 +83,16 @@ const CustomButton = styled.button`
 `;
 
 const CustomButtonLock = styled(CustomButton)`
-  top: 0%;
+  top: 1%;
   left: 35%;
+  max-width: 167px;
+  max-height: 168px;
+  transform: scale(1.1); // 放大 game 按鈕
   /* transform: translate(150%, 0%); */
   background-image: ${({ isLocked }) =>
     isLocked ? `url(${btn_lottery_disable})` : `url(${btn_lottery_normal})`};
   @media (max-width: 480px) {
-    transform: translate(-100%, 120%);
+    transform: translate(-80%, 120%);
   }
 `;
 
@@ -88,7 +103,7 @@ const CustomButtonBack = styled(CustomButton)`
   padding-bottom: 6%; /* 調整寬高比 */
   max-width: 209px;
   max-height: 62px;
-
+  transform: translate(-50%, 50%);
   @media (max-width: 768px) {
     width: 25%;
     padding-bottom: 7.5%;
@@ -103,6 +118,63 @@ const CustomButtonBack = styled(CustomButton)`
   }
 `;
 
+const Banner = styled.div`
+  /* background-color: blue; */
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 30%;
+  height: 30vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  /* padding: 10px; */
+  box-sizing: border-box;
+
+  @media (max-width: 480px) {
+    height: 20vh;
+    width: 50%;
+  }
+`;
+
+const Logo = styled.img`
+  max-width: min(400px, 100%);
+  min-width: 242px;
+  width: 100%;
+  height: auto;
+  /* background-color: #fff; */
+  /* max-height: min(474px, 45%); */
+  /* min-height: 170px; */
+  /* object-fit: cover; */
+  @media (max-width: 480px) {
+    width: 500px;
+    height: 20vh;
+  }
+`;
+
+const GroupImage = styled.img`
+  max-width: min(441px, 100%);
+  min-width: 150px;
+  /* width: 100%; */
+  height: auto;
+  background-position: right;
+  /* max-height: min(200px, 45%); */
+  /* min-height: 170px; */
+  /* object-fit: contain; */
+  @media (max-width: 480px) {
+    width: 50px;
+    height: 10vh;
+  }
+`;
+
+const gameurl = {
+  0: "https://zoustec.ddns.net/ryan/ePlay/?GroupID=A",
+  1: "https://zoustec.ddns.net/ryan/ePlay/?GroupID=B",
+  2: "https://zoustec.ddns.net/ryan/ePlay/?GroupID=C",
+  3: "https://zoustec.ddns.net/ryan/ePlay/?GroupID=D",
+};
+
 const navigateUrl = {
   0: "https://www.chutax.gov.tw/Active_ReadAgree.aspx?n=397&ss=A08360D6FCAB8088&t=22E7C1255BF33664A9DE064055F49809",
   1: "https://www.chutax.gov.tw/Active_ReadAgree.aspx?n=397&ss=A08360D6FCAB8088&t=22E7C1255BF33664A9DE064055F49809",
@@ -116,31 +188,6 @@ const groupImage = {
   2: map_tag_03,
   3: map_tag_04,
 };
-
-const Banner = styled.div`
-  background-color: blue;
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 20%;
-  height: 10vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-  padding: 10px;
-  box-sizing: border-box;
-
-  @media (max-width: 480px) {
-    height: 80vh;
-  }
-
-  img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-  }
-`;
 
 const Map = () => {
   const [s_currentGroup, set_s_CurrentGroup] = useState("");
@@ -177,8 +224,8 @@ const Map = () => {
   return (
     <ContentWrapper>
       <Banner>
-        <img src={logo} />
-        <img src={groupImage[s_currentGroup]} />
+        <Logo src={logo} alt="Logo" />
+        <GroupImage src={groupImage[s_currentGroup]} alt="Group Image" />
       </Banner>
       <CustomButtonLock
         isLocked={Object.values(s_groupActivities).includes(0)}
@@ -195,6 +242,7 @@ const Map = () => {
         style={{ top: "55%", left: "55%" }}
       />
       <CustomButton
+        className="game"
         src={btn_game}
         onClick={() => navigate("/chutaxdalp/theater")}
         style={{ top: "20%", left: "35%" }}

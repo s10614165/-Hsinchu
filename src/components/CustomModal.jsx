@@ -18,8 +18,8 @@ const ModalOverlay = styled.div`
 
 const ModalContent = styled.div`
   position: relative;
-  width: 90%;
-  height: 90%;
+  width: 50%;
+  height: 50%;
   max-width: 800px;
   max-height: 800px;
   display: flex;

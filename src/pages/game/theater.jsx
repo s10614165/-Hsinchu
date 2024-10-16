@@ -25,7 +25,7 @@ const CustomButton = styled.button`
   font-size: 0;
   transition: transform 0.3s ease;
   background-image: ${({ src }) => `url(${src})`};
-  margin-top: 30px;
+  margin-top: 20px;
   width: 270px;
   height: 80px;
   display: ${({ isLoading }) => (isLoading ? "none" : "block")};
@@ -57,10 +57,10 @@ const StyledContainer = styled.div`
   align-items: center;
   justify-content: center;
   gap: 10px;
-
+  /* background-color: red; */
   width: 90%;
-  min-height: 80vh; // 改為 100vh 以確保全屏高度
-  padding: 90px 20px 40px; // 增加頂部 padding 為 TitleImage 留出空間
+  min-height: 82.5vh; // 改為 100vh 以確保全屏高度
+  padding: 90px 20px 0px; // 增加頂部 padding 為 TitleImage 留出空間
   box-sizing: border-box;
   background-image: url(${theater_label_desktop});
   background-size: 100% 100%;
@@ -96,7 +96,9 @@ const ContentWrapper = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  max-width: 600px;
+
+  max-width: 876px;
+  max-height: 561px;
   margin: 0 auto;
   @media (max-width: 480px) {
     width: 90%;
