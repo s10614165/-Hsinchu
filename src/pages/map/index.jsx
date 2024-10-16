@@ -119,52 +119,57 @@ const CustomButtonBack = styled(CustomButton)`
 `;
 
 const Banner = styled.div`
-  /* background-color: blue; */
   position: absolute;
   top: 0;
   right: 0;
-  width: 30%;
-  height: 30vh;
+  width: 40%;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: start;
   align-items: center;
-  /* padding: 10px; */
   box-sizing: border-box;
+  overflow: hidden; // Add this to prevent overflow
 
   @media (max-width: 480px) {
-    height: 20vh;
-    width: 50%;
+    height: 35vh;
+    width: 40%;
+    /* right: 10%; */
   }
 `;
 
 const Logo = styled.img`
-  max-width: min(400px, 100%);
-  min-width: 242px;
-  width: 100%;
-  height: auto;
-  /* background-color: #fff; */
-  /* max-height: min(474px, 45%); */
-  /* min-height: 170px; */
-  /* object-fit: cover; */
+  /* max-width: 100%; */
+  width: 375px;
+  height: 274px;
+  max-height: 75%;
+  /* object-fit: contain; */
+
   @media (max-width: 480px) {
-    width: 500px;
-    height: 20vh;
+    max-width: 100%;
+    max-height: 40vh;
+    width: 275px;
+    height: 274px;
   }
 `;
 
 const GroupImage = styled.img`
-  max-width: min(441px, 100%);
-  min-width: 150px;
-  /* width: 100%; */
+  max-width: 100%;
+  width: auto;
   height: auto;
+  max-height: 45%;
+  object-fit: contain;
   background-position: right;
-  /* max-height: min(200px, 45%); */
-  /* min-height: 170px; */
-  /* object-fit: contain; */
+  width: 275px;
+  height: 174px;
+  /* margin-top: -40px; */
+
   @media (max-width: 480px) {
-    width: 50px;
-    height: 10vh;
+    max-width: 100%;
+    max-height: 10vh;
+    margin-top: -40px;
+    width: 140px;
+    height: 50px;
   }
 `;
 

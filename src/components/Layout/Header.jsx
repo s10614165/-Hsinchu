@@ -34,8 +34,8 @@ const CustomIconButton = styled.button`
   }
 
   @media (max-width: 480px) {
-    width: 65px;
-    height: 65px;
+    width: 39px;
+    height: 39px;
   }
 `;
 const CustomHeaderLogoButton = styled.button`
@@ -59,8 +59,8 @@ const CustomHeaderLogoButton = styled.button`
     transform: scale(0.95);
   }
   @media (max-width: 480px) {
-    width: 328px;
-    height: 65px;
+    width: 209px;
+    height: 41px;
   }
 `;
 const CustomHeader = styled.header`
