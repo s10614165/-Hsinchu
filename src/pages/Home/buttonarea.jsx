@@ -110,17 +110,18 @@ const ButtonArea = () => {
   const navigate = useNavigate();
   const [currentGroup, setCurrentGroup] = useState(null);
 
-  const group = [
-    "juniorElementary",
-    "seniorElementary",
-    "juniorHighschool",
-    "adult",
-  ];
+  const group = [0, 1, 2, 3];
+  // const group = [
+  //   "juniorElementary",
+  //   "seniorElementary",
+  //   "juniorHighschool",
+  //   "adult",
+  // ];
 
   const initGameStage = {
-    artGallery: false,
-    amusementPark: false,
-    cinema: false,
+    artGallery: 0,
+    amusementPark: 0,
+    theater: 0,
   };
   const buttonImages = [btn_01, btn_02, btn_03, btn_04];
 

@@ -22,8 +22,8 @@ const CustomIconButton = styled.button`
   font-size: 0;
   transition: transform 0.3s ease;
   background-image: url(${btn_share_fb_desktop});
-  width: clamp(30px, 30px, 87px);
-  height: clamp(30px, 30px, 87px);
+  width: 73px;
+  height: 73px;
   display: ${({ isLoading }) => (isLoading ? "none" : "block")};
   aspect-ratio: 300 / 90;
   &:hover {
@@ -31,6 +31,11 @@ const CustomIconButton = styled.button`
   }
   &:active {
     transform: scale(0.95);
+  }
+
+  @media (max-width: 480px) {
+    width: 65px;
+    height: 65px;
   }
 `;
 const CustomHeaderLogoButton = styled.button`
@@ -43,8 +48,8 @@ const CustomHeaderLogoButton = styled.button`
   font-size: 0;
   transition: transform 0.3s ease;
   background-image: url(${header_logo_desktop});
-  width: clamp(328px, 45vw, 617px);
-  height: clamp(65px, 30vw, 123px);
+  width: 546px;
+  height: 97px;
   display: ${({ isLoading }) => (isLoading ? "none" : "block")};
   aspect-ratio: 300 / 90;
   &:hover {
@@ -54,8 +59,8 @@ const CustomHeaderLogoButton = styled.button`
     transform: scale(0.95);
   }
   @media (max-width: 480px) {
-    width: 200px;
-    height: 35px;
+    width: 328px;
+    height: 65px;
   }
 `;
 const CustomHeader = styled.header`
@@ -63,28 +68,27 @@ const CustomHeader = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 5px 30px;
+  padding: 35px 30px 0px 45px;
   @media (max-width: 480px) {
-    padding: 22px 26px 26px 26px;
+    padding: 14px 19px 0px 17px;
   }
-  /* // */
 `;
 
 const Header = () => {
   const navigate = useNavigate();
 
   const handleHeaderClick = () => {
-    navigate("/");
+    navigate("/larry/energy/dist/");
   };
   const handleIconClick = () => {
-    navigate("/");
+    window.open("https://www.facebook.com/chutax", "_blank");
   };
   return (
     <CustomHeader>
       <StartButton>
-        <CustomHeaderLogoButton onChange={handleHeaderClick} />
+        <CustomHeaderLogoButton onClick={handleHeaderClick} />
       </StartButton>
-      <CustomIconButton onChange={handleIconClick} />
+      <CustomIconButton onClick={handleIconClick} />
     </CustomHeader>
   );
 };
