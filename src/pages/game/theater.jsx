@@ -7,6 +7,7 @@ import img_mission_complete from "@/assets/img_mission_complete.png";
 import styled from "styled-components";
 import CustomModal from "@/components/CustomModal";
 import popup_theater from "@/assets/popup_theater.png";
+import GlobalStyle from "../../style/GlobalStyle.jsx";
 
 const videioUrl = {
   0: "https://youtu.be/kIS7D-Jm55E?si=-93y75MFEREnUHhP",
@@ -108,6 +109,8 @@ const ContentWrapper = styled.div`
 `;
 
 const WarringText = styled.p`
+  color: #727171;
+  font-family: "Noto Sans CJK TC", sans-serif; // 使用新字體
   @media (max-width: 480px) {
     font-size: 20px;
     margin-top: 30px;
@@ -162,11 +165,6 @@ const Theater = () => {
     } else {
       setIsTimeUp(true);
       set_s_isOpen(true);
-    }
-  }, [countdown]);
-
-  const handleButtonClick = () => {
-    if (isTimeUp) {
       const storedCurrentGroup = localStorage.getItem("currentGroup");
       const parse = JSON.parse(storedCurrentGroup);
       console.log(parse);
@@ -179,7 +177,11 @@ const Theater = () => {
           JSON.stringify({ ...parse, gameStage: newStage })
         );
       }
+    }
+  }, [countdown]);
 
+  const handleButtonClick = () => {
+    if (isTimeUp) {
       navigate("/map");
     } else {
       navigate("/map");
@@ -198,43 +200,49 @@ const Theater = () => {
   };
 
   return (
-    <CenteredWrapper>
-      <StyledContainer>
-        {/* <TitleImage src={theater_logo_desktop} alt="竹視電影院" /> */}
-        <CountdownText>
-          {isTimeUp ? (
-            <img
-              style={{ width: "70px", height: "70px" }}
-              src={img_mission_complete}
-            />
-          ) : (
-            countdown
-          )}
-        </CountdownText>
-        <WarringText>瀏覽作品30秒即可完成任務</WarringText>
-        <ContentWrapper>
-          <VideoBox>
-            <iframe
-              src={getYouTubeEmbedUrl(videioUrl[storedCurrentGroup.group])}
-              title="YouTube video player"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              referrerpolicy="strict-origin-when-cross-origin"
-              allowfullscreen
-            />
-          </VideoBox>
-        </ContentWrapper>
-        <CustomButton src={btn_backtomap_desktop} onClick={handleButtonClick} />
-      </StyledContainer>
-      <CustomModal
-        isOpen={s_isOpen}
-        onClose={() => {
-          set_s_isOpen(false);
-        }}
-        imageSrc={popup_theater}
-        useType="map"
-      />
-    </CenteredWrapper>
+    <>
+      <GlobalStyle />
+      <CenteredWrapper>
+        <StyledContainer>
+          {/* <TitleImage src={theater_logo_desktop} alt="竹視電影院" /> */}
+          <CountdownText>
+            {isTimeUp ? (
+              <img
+                style={{ width: "70px", height: "70px" }}
+                src={img_mission_complete}
+              />
+            ) : (
+              countdown
+            )}
+          </CountdownText>
+          <WarringText>瀏覽作品30秒即可完成任務</WarringText>
+          <ContentWrapper>
+            <VideoBox>
+              <iframe
+                src={getYouTubeEmbedUrl(videioUrl[storedCurrentGroup.group])}
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+              />
+            </VideoBox>
+          </ContentWrapper>
+          <CustomButton
+            src={btn_backtomap_desktop}
+            onClick={handleButtonClick}
+          />
+        </StyledContainer>
+        <CustomModal
+          isOpen={s_isOpen}
+          onClose={() => {
+            set_s_isOpen(false);
+          }}
+          imageSrc={popup_theater}
+          useType="map"
+        />
+      </CenteredWrapper>
+    </>
   );
 };
 

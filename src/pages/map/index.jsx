@@ -59,8 +59,10 @@ const CustomButton = styled.button`
     width: 35%;
     /* transform: scale(1.5); // 放大 game 按鈕 */
     @media (max-width: 480px) {
-      width: 95%;
+      width: 45%;
+      transform-box: fill-box;
       transform: translate(0%, 85%) scale(1.3); // 保持放大效果並應用移動變換
+      transform-box: fill-box;
       padding-bottom: 0%;
       min-width: 103px;
       min-height: 94px;
@@ -75,6 +77,7 @@ const CustomButton = styled.button`
       padding-bottom: 0%;
       min-width: 103px;
       min-height: 94px;
+      z-index: 50;
     }
   }
   &.theater {

@@ -30,9 +30,7 @@ const Layout = () => {
   const location = useLocation();
 
   const getBackgroundImage = () => {
-    return location.pathname === "/chutaxdalp/map"
-      ? map_bg_desktop
-      : landing_bg;
+    return location.pathname === "/map" ? map_bg_desktop : landing_bg;
   };
 
   return (

@@ -318,6 +318,17 @@ const Museum = () => {
     } else {
       setIsTimeUp(true);
       set_s_isOpen(true);
+
+      const parse = { ...storedCurrentGroup };
+      if (Object.keys(parse).length > 0) {
+        const newStage = parse.gameStage.map((item, index) =>
+          index === parse.group ? { ...item, artGallery: 1 } : item
+        );
+        localStorage.setItem(
+          "currentGroup",
+          JSON.stringify({ ...parse, gameStage: newStage })
+        );
+      }
     }
     return () => clearTimeout(timer);
   }, [countdown]);
@@ -384,7 +395,9 @@ const Museum = () => {
             countdown
           )}
         </CountdownText>
-        <p>瀏覽作品30秒即可完成任務</p>
+        <p style={{ color: "#727171", fontFamily: "Noto Sans CJK TC" }}>
+          瀏覽作品30秒即可完成任務
+        </p>
         <ContentWrapper>
           <LeftButton onClick={goToPrevious} />
           <CarouselContainer>

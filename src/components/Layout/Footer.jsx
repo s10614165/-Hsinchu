@@ -16,11 +16,15 @@ const FooterImage = styled.img`
   /* transform: translateX(-50%); */
   width: 100%;
   /* height: 100%; */
-  max-width: 324.5px;
-  max-height: 57.5px;
+  max-width: 260.5px;
+  max-height: 27.5px;
   /* width: 30%; */
   /* height: auto; */
   /* z-index: 20; */
+  @media (max-width: 480px) {
+    max-width: 200.5px;
+    max-height: 27.5px;
+  }
 `;
 
 const Footer = () => {

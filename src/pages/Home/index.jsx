@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
-import { useLocation } from "react-router-dom";
-
+import { useLocation, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Banner from "./banner.jsx";
 import ButtonArea from "./buttonarea.jsx";
 import banner_desk from "@/assets/banner_desk.png";
@@ -27,6 +27,34 @@ const StyledContainer = styled.div`
 `;
 
 const Home = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const queryParams = new URLSearchParams(location.search);
+  const link = queryParams.get("Link");
+  useEffect(() => {
+    if (link) {
+      switch (link) {
+        case "map":
+          navigate("/map");
+          break;
+        case "museum":
+          navigate("/museum");
+          break;
+        case "theater":
+          navigate("/theater");
+          break;
+        case "amusementPark":
+          navigate("/amusementPark");
+          break;
+        default:
+          // console.log("未知的Link參數");
+          break;
+      }
+    } else {
+      // console.log("無Link參數");
+    }
+  }, [link, navigate]);
+
   return (
     <StyledContainer>
       {/* <Banner /> */}

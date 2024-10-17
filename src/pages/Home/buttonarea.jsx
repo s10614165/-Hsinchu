@@ -69,6 +69,7 @@ const CustomEvenButton = styled.button`
   background-image: ${({ src }) => `url(${src})`};
   width: 292px;
   height: 267px;
+  margin-top: -90px;
   display: ${({ isLoading }) => (isLoading ? "none" : "block")};
   @media (max-width: 768px) {
     /* max-height: 60vh; */
@@ -76,7 +77,7 @@ const CustomEvenButton = styled.button`
   @media (max-width: 480px) {
     transform: translate(-20%, 0%);
 
-    width: 200px;
+    width: 150px;
     height: 900px;
     align-self: flex-start;
     /* flex: 1; */
@@ -126,15 +127,19 @@ const TimeImageStyle = styled.img`
   width: 100%;
   height: 100%;
   object-fit: contain;
+  transform: translate(-10%, 0%);
   @media (max-width: 480px) {
     width: 80%;
     height: 80%;
+    transform: translate(0%, 0%);
+
     /* height: 100vh; 使用視窗高度 */
   }
 `;
 const Container = styled.div`
+  /* background-color: red; */
   width: 70%;
-  height: 20%;
+  height: 13%;
   display: flex;
   justify-content: center;
   align-items: center;
