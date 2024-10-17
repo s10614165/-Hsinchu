@@ -207,7 +207,9 @@ const Theater = () => {
         <StyledContainer>
           {/* <TitleImage src={theater_logo_desktop} alt="竹視電影院" /> */}
           <CountdownText>
-            {isTimeUp ? (
+            {isTimeUp ||
+            storedCurrentGroup.gameStage[storedCurrentGroup.group].theater ===
+              1 ? (
               <img
                 style={{ width: "70px", height: "70px" }}
                 src={img_mission_complete}

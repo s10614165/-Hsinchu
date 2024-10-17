@@ -386,7 +386,9 @@ const Museum = () => {
       <StyledContainer>
         {/* 你的現有內容 */}
         <CountdownText className={isTimeUp ? "countD" : ""}>
-          {isTimeUp ? (
+          {isTimeUp ||
+          storedCurrentGroup.gameStage[storedCurrentGroup.group].artGallery ===
+            1 ? (
             <img
               style={{ width: "70px", height: "70px" }}
               src={img_mission_complete}
