@@ -44,7 +44,8 @@ const Home = () => {
           navigate("/theater");
           break;
         case "amusementPark":
-          navigate("/amusementPark");
+          window.location.href =
+            "https://hchg-vtuber.url.tw/chutaxdalp/amusementPark/";
           break;
         default:
           // console.log("未知的Link參數");
