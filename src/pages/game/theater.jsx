@@ -167,6 +167,7 @@ const Theater = () => {
       set_s_isOpen(true);
       const storedCurrentGroup = localStorage.getItem("currentGroup");
       const parse = JSON.parse(storedCurrentGroup);
+
       console.log(parse);
       if (Object.keys(parse).length > 0) {
         const newStage = parse.gameStage.map((item, index) => {

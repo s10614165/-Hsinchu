@@ -118,19 +118,44 @@ const CustomButton = styled.button`
     height: 157px;
   }
 `;
-
+const initGameStage = {
+  artGallery: 0,
+  amusementPark: 0,
+  theater: 0,
+};
 const ButtonArea = () => {
   const navigate = useNavigate();
+  const [currentGroup, setCurrentGroup] = useState(null);
   const [s_isOpen, set_s_isOpen] = useState(false);
 
   const group = [0, 1, 2, 3];
   const buttonImages = [btn_01, btn_02, btn_03, btn_04];
 
   const handleButtonClick = (groupName) => {
-    // ... (保持原有的處理邏輯)
+    console.log(groupName);
+    if (!localStorage.getItem(`currentGroup`)) {
+      localStorage.setItem(
+        `currentGroup`,
+        JSON.stringify({
+          group: groupName,
+          gameStage: [
+            initGameStage,
+            initGameStage,
+            initGameStage,
+            initGameStage,
+          ],
+        })
+      );
+    } else {
+      const parse = JSON.parse(localStorage.getItem(`currentGroup`));
+      const newSet = { ...parse, group: groupName };
+      localStorage.setItem(`currentGroup`, JSON.stringify(newSet));
+    }
+    // 設置當前的 group
+    setCurrentGroup(groupName);
+    // 跳轉到指定路徑
     navigate("/map");
   };
-
   return (
     <ButtonAreaWarp>
       <ImgfilmExcludeImageStyleII src={logo} alt="Logo" />
