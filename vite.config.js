@@ -1,3 +1,4 @@
+// vite.config.js
 import { defineConfig } from "vite";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -15,7 +16,7 @@ export default defineConfig({
     },
   },
   plugins: [react()],
-  base: "/chutaxdalp/",
+  base: "/chutaxdalp/", // 保持這個設置
   build: {
     outDir: "dist",
   },
