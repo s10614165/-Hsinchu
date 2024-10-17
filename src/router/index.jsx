@@ -6,6 +6,7 @@ import Home from "@/pages/Home/";
 import Map from "@/pages/map/";
 import Theater from "@/pages/game/theater.jsx";
 import Museum from "@/pages/game/museum.jsx";
+import EventBoard from "@/pages/eventBoard/";
 
 const PageRoutes = () => (
   <Routes>
@@ -14,6 +15,7 @@ const PageRoutes = () => (
       <Route path="/chutaxdalp/map" element={<Map />} />
       <Route path="/chutaxdalp/theater" element={<Theater />} />
       <Route path="/chutaxdalp/museum" element={<Museum />} />
+      <Route path="/chutaxdalp/eventBoard" element={<EventBoard />} />
     </Route>
   </Routes>
 );

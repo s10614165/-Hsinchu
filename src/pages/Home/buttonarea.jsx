@@ -198,7 +198,10 @@ const ButtonArea = () => {
       <Container>
         <CustomEvenButton
           onClick={() => {
-            set_s_isOpen(true);
+            // set_s_isOpen(true);
+            navigate("/chutaxdalp/eventBoard");
+
+            // eventBoard
           }}
           src={btn_event_guideline}
           alt="event"
