@@ -198,13 +198,6 @@ const GroupImage = styled.img`
   }
 `;
 
-const gameurl = {
-  0: "https://zoustec.ddns.net/ryan/ePlay/?GroupID=A",
-  1: "https://zoustec.ddns.net/ryan/ePlay/?GroupID=B",
-  2: "https://zoustec.ddns.net/ryan/ePlay/?GroupID=C",
-  3: "https://zoustec.ddns.net/ryan/ePlay/?GroupID=D",
-};
-
 const navigateUrl = {
   0: "https://www.chutax.gov.tw/Active_ReadAgree.aspx?n=397&ss=A08360D6FCAB8088&t=22E7C1255BF33664A9DE064055F49809",
   1: "https://www.chutax.gov.tw/Active_ReadAgree.aspx?n=397&ss=A08360D6FCAB8088&t=22E7C1255BF33664A9DE064055F49809",

@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import btn_backtomap_desktop from "@/assets/btn_backtomap_desktop.png";
+// import guideline_label_desktop from "@/assets/guideline_label_desktop.png";
+// import guideline_label_mobile from "@/assets/guideline_label_mobile.png";
 import eventDesktop from "@/assets/eventDesktop.png";
 import eventmobile from "@/assets/eventmobile.png";
+
 import AImg from "@/assets/A.svg";
 import BImg from "@/assets/B.svg";
 import CImg from "@/assets/C.svg";
@@ -35,6 +38,7 @@ const StyledContainer = styled.div`
   padding: 90px 60px 0px; // 增加頂部 padding 為 TitleImage 留出空間
   box-sizing: border-box;
   background-image: url(${eventDesktop});
+
   background-size: 100% 100%;
   background-position: center;
   background-repeat: no-repeat;
@@ -142,3 +146,5 @@ const Theater = () => {
 };
 
 export default Theater;
+
+/* background-image: url(${guideline_label_mobile}); */

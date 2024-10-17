@@ -11,7 +11,8 @@ import Footer from "./Footer";
 const LayoutWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  /* height: 100vh; */
+  min-height: 100vh;
   overflow: hidden;
   background-image: ${({ backgroundImage }) => `url(${backgroundImage})`};
   background-size: cover;
