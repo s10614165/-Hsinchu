@@ -259,7 +259,7 @@ const Map = () => {
       <CustomButton
         className="museum"
         src={
-          storedCurrentGroup.gameStage[storedCurrentGroup.group].museum === 1
+          storedCurrentGroup.gameStage[storedCurrentGroup.group].artGallery === 1
             ? btn_museum
             : museum_disabled
         }
