@@ -75,8 +75,8 @@ const StyledContainerII = styled.div`
 `;
 
 const StyledImage = styled.img`
-  width: 180px;
-  height: 62px;
+  width: 200px;
+  height: 82px;
   object-fit: contain;
   @media (max-width: 480px) {
     width: 120px;
@@ -101,7 +101,8 @@ const StyledText = styled.div`
   white-space: pre-wrap;
   word-break: break-all;
   font-weight: bold;
-  font-size: 30px;
+  font-size: 20px;
+  line-height: 30px;
   font-family: "Noto Sans CJK TC", sans-serif;
 
   @media (max-width: 480px) {

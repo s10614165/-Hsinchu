@@ -149,6 +149,10 @@ const StyledContainer = styled.div`
     padding: 80px 10px 20px;
     background-image: url(${museum_label_mobile});
   }
+  @media (max-width: 400px) {
+    padding: 100px 10px 20px;
+    background-image: url(${museum_label_mobile});
+  }
 `;
 
 const ContentWrapper = styled.div`
@@ -195,8 +199,8 @@ const CountdownText = styled.p`
   @media (max-width: 480px) {
     font-size: 20px;
     /* margin-bottom: 5px; */
-    /* top: 5%;
-    right: 5%; */
+    /* /* top: 5%; */
+    right: 5%;
   }
 `;
 
@@ -238,11 +242,17 @@ const CarouselButton = styled.button`
 const LeftButton = styled(CarouselButton)`
   left: 10px;
   background-image: url(${btn_left});
+  @media (max-width: 480px) {
+    left: -25px;
+  }
 `;
 
 const RightButton = styled(CarouselButton)`
   right: 10px;
   background-image: url(${btn_right});
+  @media (max-width: 480px) {
+    right: -30px;
+  }
 `;
 
 const LoadingPlaceholder = styled.div`

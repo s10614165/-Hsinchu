@@ -4,16 +4,16 @@ import { useNavigate } from "react-router-dom";
 
 // 導入所有必要的圖片資源
 import btn_lottery_disable from "@/assets/btn_lottery_disable.png";
-import btn_lottery_normal from "@/assets/btn_lottery_normal.svg";
-import btn_museum from "@/assets/btn_museum.svg";
+import btn_lottery_normal from "@/assets/btn_lottery_normal.png";
+import museum_disabled from "@/assets/museum_disabled.png";
+import btn_museum from "@/assets/btn_museum.png";
 import theater_disabled from "@/assets/theater_disabled.png";
 import game_disabled from "@/assets/game_disabled.png";
-import btn_theater from "@/assets/btn_theater.svg";
+import btn_theater from "@/assets/btn_theater.png";
 import btn_game from "@/assets/btn_game.png";
-import museum_disabled from "@/assets/museum_disabled.png";
 import btn_home_desktop from "@/assets/btn_home_desktop.png";
 import map_label_popup2 from "@/assets/map_label_popup2.svg";
-import land_map from "@/assets/land_map.svg";
+import land_map from "@/assets/land_map.png";
 import map_tag_01 from "@/assets/map_tag_01.png";
 import map_tag_02 from "@/assets/map_tag_02.png";
 import map_tag_03 from "@/assets/map_tag_03.png";
@@ -29,7 +29,7 @@ const ContentWrapper = styled.div`
   height: 100vh;
   min-height: 100vh;
   background-image: url(${land_map});
-  background-size: 100% 100%;
+  background-size: 50% 100%;
   background-position: top;
   background-repeat: no-repeat;
   display: flex;
@@ -39,6 +39,9 @@ const ContentWrapper = styled.div`
   overflow: hidden;
   @media (max-width: 480px) {
     height: 90vh;
+    background-position: center;
+
+    background-size: 100% 60%;
   }
 `;
 
@@ -62,11 +65,11 @@ const CustomButton = styled.button`
 
   &.game {
     width: 35%;
-    /* transform: scale(1.5); // 放大 game 按鈕 */
+    transform: scale(0.8); // 放大 game 按鈕
     @media (max-width: 480px) {
       width: 45%;
       transform-box: fill-box;
-      transform: translate(0%, 85%) scale(1.3); // 保持放大效果並應用移動變換
+      transform: translate(0%, 85%) scale(1.5); // 保持放大效果並應用移動變換
       transform-box: fill-box;
       padding-bottom: 0%;
       min-width: 103px;
@@ -75,10 +78,10 @@ const CustomButton = styled.button`
   }
   &.museum {
     width: 35%;
-    transform: scale(1.1); // 放大 game 按鈕
+    transform: scale(1.2); // 放大 game 按鈕
     @media (max-width: 480px) {
       width: 95%;
-      transform: translate(-5%, 15%) scale(0.9); // 保持放大效果並應用移動變換
+      transform: translate(-5%, 15%) scale(1); // 保持放大效果並應用移動變換
       padding-bottom: 0%;
       min-width: 103px;
       min-height: 94px;
@@ -90,7 +93,7 @@ const CustomButton = styled.button`
     /* transform: scale(1.1); // 放大 game 按鈕 */
     @media (max-width: 480px) {
       width: 95%;
-      transform: translate(0%, -25%) scale(0.9); // 保持放大效果並應用移動變換
+      transform: translate(15%, -25%) scale(1.1); // 保持放大效果並應用移動變換
       padding-bottom: 0%;
       min-width: 103px;
       min-height: 94px;
@@ -117,7 +120,7 @@ const CustomButtonLock = styled(CustomButton)`
   left: 30%;
   max-width: 200px;
   max-height: 201px;
-  transform: scale(1.1); // 放大 game 按鈕
+  transform: scale(1.2); // 放大 game 按鈕
   /* transform: translate(150%, 0%); */
   background-image: ${({ isLocked }) =>
     isLocked ? `url(${btn_lottery_disable})` : `url(${btn_lottery_normal})`};
@@ -150,10 +153,13 @@ const CustomButtonBack = styled(CustomButton)`
 
 const Banner = styled.div`
   position: absolute;
+  /* background: #000; */
   top: 0;
   right: 0;
-  width: 40%;
-  height: 100%;
+  /* width: 40%; */
+  /* width: 50%; */
+  /* height: 100%; */
+  padding-right: 10px;
   display: flex;
   flex-direction: column;
   justify-content: start;
@@ -162,8 +168,11 @@ const Banner = styled.div`
   overflow: hidden; // Add this to prevent overflow
 
   @media (max-width: 480px) {
-    height: 35vh;
-    width: 40%;
+    /* height: 100%; */
+    /* background-color: #fff; */
+    /* width: 70%; */
+    top: 0px;
+    right: 0px;
     /* right: 10%; */
   }
 `;
@@ -176,30 +185,35 @@ const Logo = styled.img`
   /* object-fit: contain; */
 
   @media (max-width: 480px) {
-    max-width: 100%;
-    max-height: 40vh;
-    width: 275px;
-    height: 274px;
+    /* max-width: 100%; */
+    /* max-height: 40vh; */
+    width: 250px;
+    height: 200px;
   }
 `;
 
 const GroupImage = styled.img`
   max-width: 100%;
-  width: auto;
-  height: auto;
-  max-height: 45%;
+  width: 100%;
+  /* height: auto; */
+  /* max-height: 45%; */
   object-fit: contain;
-  background-position: right;
+  /* background-position: top; */
   width: 275px;
   height: 174px;
+  /* margin-right: 40px; */
+  /* align-self: center; */
   /* margin-top: -40px; */
 
   @media (max-width: 480px) {
-    max-width: 100%;
-    max-height: 10vh;
-    margin-top: -40px;
-    width: 140px;
-    height: 50px;
+    /* margin-right: 0px; */
+    width: 175px;
+    height: 55px;
+    /* max-width: 100%; */
+    /* max-height: 10vh; */
+    /* margin-top: -40px; */
+    /* width: 140px; */
+    /* height: 50px; */
   }
 `;
 
@@ -259,7 +273,8 @@ const Map = () => {
       <CustomButton
         className="museum"
         src={
-          storedCurrentGroup.gameStage[storedCurrentGroup.group].artGallery === 1
+          storedCurrentGroup.gameStage[storedCurrentGroup.group].artGallery ===
+          1
             ? btn_museum
             : museum_disabled
         }
