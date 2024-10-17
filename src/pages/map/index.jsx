@@ -6,6 +6,9 @@ import { useNavigate } from "react-router-dom";
 import btn_lottery_disable from "@/assets/btn_lottery_disable.png";
 import btn_lottery_normal from "@/assets/btn_lottery_normal.svg";
 import btn_museum from "@/assets/btn_museum.svg";
+import museum_disabled from "@/assets/museum_disabled.png";
+import theater_disabled from "@/assets/theater_disabled.png";
+import game_disabled from "@/assets/game_disabled.png";
 import btn_theater from "@/assets/btn_theater.svg";
 import btn_game from "@/assets/btn_game.svg";
 import btn_home_desktop from "@/assets/btn_home_desktop.png";
@@ -217,14 +220,16 @@ const Map = () => {
   const [s_groupActivities, set_s_GroupActivities] = useState({});
   const [s_isOpen, set_s_isOpen] = useState(false);
   const navigate = useNavigate();
+  const storedCurrentGroup = JSON.parse(localStorage.getItem("currentGroup"));
 
   useEffect(() => {
-    const storedCurrentGroup = localStorage.getItem("currentGroup");
-    const parse = JSON.parse(storedCurrentGroup);
-    console.log(parse);
-    if (Object.keys(parse).length > 0) {
-      set_s_CurrentGroup(parse.group);
-      set_s_GroupActivities(parse.gameStage[parse.group]);
+    // const parse = JSON.parse(storedCurrentGroup);
+    console.log(storedCurrentGroup);
+    if (Object.keys(storedCurrentGroup).length > 0) {
+      set_s_CurrentGroup(storedCurrentGroup.group);
+      set_s_GroupActivities(
+        storedCurrentGroup.gameStage[storedCurrentGroup.group]
+      );
     }
   }, []);
 
@@ -251,19 +256,32 @@ const Map = () => {
       />
       <CustomButton
         className="museum"
-        src={btn_museum}
+        src={
+          storedCurrentGroup.gameStage[storedCurrentGroup.group].museum === 1
+            ? btn_museum
+            : museum_disabled
+        }
         onClick={() => navigate("/museum")}
         style={{ top: "40%", left: "50%" }}
       />
       <CustomButton
         className="theater"
-        src={btn_theater}
+        src={
+          storedCurrentGroup.gameStage[storedCurrentGroup.group].theater === 1
+            ? btn_theater
+            : theater_disabled
+        }
         onClick={() => navigate("/theater")}
         style={{ top: "60%", left: "52%" }}
       />
       <CustomButton
         className="game"
-        src={btn_game}
+        src={
+          storedCurrentGroup.gameStage[storedCurrentGroup.group]
+            .amusementPark === 1
+            ? btn_game
+            : game_disabled
+        }
         onClick={() => {
           // console.log(gameurl[s_currentGroup]);
           window.location.href =
