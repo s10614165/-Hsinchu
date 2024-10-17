@@ -66,6 +66,28 @@ const CustomButton = styled.button`
       min-height: 94px;
     }
   }
+  &.museum {
+    width: 35%;
+    transform: scale(1.1); // 放大 game 按鈕
+    @media (max-width: 480px) {
+      width: 95%;
+      transform: translate(-5%, 15%) scale(0.9); // 保持放大效果並應用移動變換
+      padding-bottom: 0%;
+      min-width: 103px;
+      min-height: 94px;
+    }
+  }
+  &.theater {
+    width: 35%;
+    /* transform: scale(1.1); // 放大 game 按鈕 */
+    @media (max-width: 480px) {
+      width: 95%;
+      transform: translate(0%, -25%) scale(0.9); // 保持放大效果並應用移動變換
+      padding-bottom: 0%;
+      min-width: 103px;
+      min-height: 94px;
+    }
+  }
 
   @media (max-width: 768px) {
     width: 20%;
@@ -83,16 +105,16 @@ const CustomButton = styled.button`
 `;
 
 const CustomButtonLock = styled(CustomButton)`
-  top: 1%;
-  left: 35%;
-  max-width: 167px;
-  max-height: 168px;
+  top: 3%;
+  left: 30%;
+  max-width: 200px;
+  max-height: 201px;
   transform: scale(1.1); // 放大 game 按鈕
   /* transform: translate(150%, 0%); */
   background-image: ${({ isLocked }) =>
     isLocked ? `url(${btn_lottery_disable})` : `url(${btn_lottery_normal})`};
   @media (max-width: 480px) {
-    transform: translate(-80%, 120%);
+    transform: translate(-50%, 160%);
   }
 `;
 
@@ -232,24 +254,27 @@ const Map = () => {
         onClick={handleLockButtonClick}
       />
       <CustomButton
+        className="museum"
         src={btn_museum}
         onClick={() => navigate("/chutaxdalp/museum")}
-        style={{ top: "35%", left: "50%" }}
+        style={{ top: "40%", left: "50%" }}
       />
       <CustomButton
+        className="theater"
         src={btn_theater}
         onClick={() => navigate("/chutaxdalp/theater")}
-        style={{ top: "55%", left: "55%" }}
+        style={{ top: "60%", left: "52%" }}
       />
       <CustomButton
         className="game"
         src={btn_game}
         onClick={() => {
-          console.log(gameurl[s_currentGroup]);
-          window.location.href = gameurl[s_currentGroup];
+          // console.log(gameurl[s_currentGroup]);
+          window.location.href =
+            "https://hchg-vtuber.url.tw/chutaxdalp/amusementPark/";
           // navigate("/chutaxdalp/theater");
         }}
-        style={{ top: "20%", left: "35%" }}
+        style={{ top: "30%", left: "35%" }}
       />
       <CustomButtonBack
         src={btn_home_desktop}
