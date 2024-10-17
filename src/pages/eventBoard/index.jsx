@@ -76,6 +76,7 @@ const StyledText = styled.div`
   white-space: pre-wrap;
   word-break: break-word;
   font-weight: bold;
+  color: #727171;
   font-family: "Noto Sans CJK TC", sans-serif;
 `;
 

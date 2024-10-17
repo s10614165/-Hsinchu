@@ -180,9 +180,9 @@ const Theater = () => {
         );
       }
 
-      navigate("/chutaxdalp/map");
+      navigate("/map");
     } else {
-      navigate("/chutaxdalp/map");
+      navigate("/map");
     }
   };
   const getYouTubeEmbedUrl = (url) => {

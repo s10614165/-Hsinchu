@@ -256,13 +256,13 @@ const Map = () => {
       <CustomButton
         className="museum"
         src={btn_museum}
-        onClick={() => navigate("/chutaxdalp/museum")}
+        onClick={() => navigate("/museum")}
         style={{ top: "40%", left: "50%" }}
       />
       <CustomButton
         className="theater"
         src={btn_theater}
-        onClick={() => navigate("/chutaxdalp/theater")}
+        onClick={() => navigate("/theater")}
         style={{ top: "60%", left: "52%" }}
       />
       <CustomButton
@@ -276,10 +276,7 @@ const Map = () => {
         }}
         style={{ top: "30%", left: "35%" }}
       />
-      <CustomButtonBack
-        src={btn_home_desktop}
-        onClick={() => navigate("/chutaxdalp/")}
-      />
+      <CustomButtonBack src={btn_home_desktop} onClick={() => navigate("/")} />
       <CustomModal
         isOpen={s_isOpen}
         onClose={() => set_s_isOpen(false)}

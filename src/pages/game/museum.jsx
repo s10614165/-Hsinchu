@@ -303,29 +303,30 @@ const Museum = () => {
   const [countdown, setCountdown] = useState(30);
   const [isTimeUp, setIsTimeUp] = useState(false);
   const navigate = useNavigate();
-  const storedCurrentGroup = JSON.parse(localStorage.getItem("currentGroup"));
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [images, setImages] = useState([]);
-
   const [s_isOpen, set_s_isOpen] = useState(false);
 
+  const storedCurrentGroup = JSON.parse(
+    localStorage.getItem("currentGroup") || "{}"
+  );
+
   useEffect(() => {
+    let timer;
     if (countdown > 0) {
-      const timer = setTimeout(() => setCountdown(countdown - 1), 1000);
-      return () => clearTimeout(timer);
+      timer = setTimeout(() => setCountdown((prev) => prev - 1), 1000);
     } else {
       setIsTimeUp(true);
       set_s_isOpen(true);
     }
+    return () => clearTimeout(timer);
   }, [countdown]);
 
   useEffect(() => {
     if (Object.keys(storedCurrentGroup).length > 0) {
       const groupImages = imageUrl[storedCurrentGroup.group];
       if (groupImages) {
-        // Load only the first image initially
         setImages([groupImages[0]]);
-        // Load the rest of the images asynchronously
         Promise.all(
           groupImages.slice(1).map((src) => {
             return new Promise((resolve, reject) => {
@@ -340,43 +341,35 @@ const Museum = () => {
         });
       }
     }
-  }, [storedCurrentGroup]);
+  }, [storedCurrentGroup.group]);
 
-  const goToPrevious = () => {
+  const goToPrevious = useCallback(() => {
     setCurrentImageIndex((prevIndex) =>
       prevIndex === 0 ? images.length - 1 : prevIndex - 1
     );
-  };
+  }, [images.length]);
 
-  const goToNext = () => {
+  const goToNext = useCallback(() => {
     setCurrentImageIndex((prevIndex) =>
       prevIndex === images.length - 1 ? 0 : prevIndex + 1
     );
-  };
+  }, [images.length]);
 
-  const handleButtonClick = () => {
+  const handleButtonClick = useCallback(() => {
     if (isTimeUp) {
-      const storedCurrentGroup = localStorage.getItem("currentGroup");
-      const parse = JSON.parse(storedCurrentGroup);
-      console.log(parse);
+      const parse = { ...storedCurrentGroup };
       if (Object.keys(parse).length > 0) {
-        const newStage = parse.gameStage.map((item, index) => {
-          return index === parse.group
-            ? { ...item, artGallery: 1 }
-            : { ...item };
-        });
+        const newStage = parse.gameStage.map((item, index) =>
+          index === parse.group ? { ...item, artGallery: 1 } : item
+        );
         localStorage.setItem(
-          `currentGroup`,
+          "currentGroup",
           JSON.stringify({ ...parse, gameStage: newStage })
         );
       }
-
-      navigate("/chutaxdalp/map");
-    } else {
-      navigate("/chutaxdalp/map");
     }
-  };
-
+    navigate("/map");
+  }, [isTimeUp, navigate, storedCurrentGroup]);
   return (
     <CenteredWrapper>
       <StyledContainer>

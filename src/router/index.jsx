@@ -11,11 +11,11 @@ import EventBoard from "@/pages/eventBoard/";
 const PageRoutes = () => (
   <Routes>
     <Route element={<Layout />}>
-      <Route path="/chutaxdalp/" element={<Home />} />
-      <Route path="/chutaxdalp/map" element={<Map />} />
-      <Route path="/chutaxdalp/theater" element={<Theater />} />
-      <Route path="/chutaxdalp/museum" element={<Museum />} />
-      <Route path="/chutaxdalp/eventBoard" element={<EventBoard />} />
+      <Route path="/" element={<Home />} />
+      <Route path="/map" element={<Map />} />
+      <Route path="/theater" element={<Theater />} />
+      <Route path="/museum" element={<Museum />} />
+      <Route path="/eventBoard" element={<EventBoard />} />
     </Route>
   </Routes>
 );

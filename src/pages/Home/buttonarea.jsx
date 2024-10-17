@@ -188,7 +188,7 @@ const ButtonArea = () => {
     setCurrentGroup(groupName);
 
     // 跳轉到指定路徑
-    navigate("/chutaxdalp/map");
+    navigate("/map");
   };
 
   return (
@@ -199,7 +199,7 @@ const ButtonArea = () => {
         <CustomEvenButton
           onClick={() => {
             // set_s_isOpen(true);
-            navigate("/chutaxdalp/eventBoard");
+            navigate("/eventBoard");
 
             // eventBoard
           }}
