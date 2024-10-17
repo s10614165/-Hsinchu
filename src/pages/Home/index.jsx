@@ -13,7 +13,9 @@ const StyledContainer = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: end;
+  background-size: 95%;
+  background-position: top;
+  /* justify-content: end; */
   background-image: url(${banner_desk});
   background-repeat: no-repeat;
   @media (max-width: 768px) {

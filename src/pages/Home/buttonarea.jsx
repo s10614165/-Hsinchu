@@ -7,12 +7,14 @@ import btn_03 from "@/assets/btn_03.png";
 import btn_04 from "@/assets/btn_04.png";
 import img_date_desktop from "@/assets/img_date_desktop.png";
 import btn_event_guideline from "@/assets/btn_event_guideline.svg";
-import eventBoard from "@/assets/eventBoard.png";
-import logo from "@/assets/logo2.svg";
+
+// import logo from "@/assets/logo2.svg";
+import logo from "@/assets/logo.png";
 import CustomModal from "@/components/CustomModal";
 
 const ButtonAreaWarp = styled.div`
   display: flex;
+  /* background: #000; */
   flex-direction: column;
   align-items: center;
   width: 100%;
@@ -69,12 +71,12 @@ const CustomEvenButton = styled.button`
   max-height: 267px; // 設置最大高度
 
   @media (max-width: 480px) {
-    width: 10vw; // 在小螢幕上增加相對大小
-    height: 10vh;
-    min-width: 50px; // 調整小螢幕的最小尺寸
-    min-height: 50px;
-    top: -50px;
-    left: 0;
+    width: 20vw; // 在小螢幕上增加相對大小
+    height: 20vh;
+    min-width: 85px; // 調整小螢幕的最小尺寸
+    min-height: 85px;
+    top: -100px;
+    left: -10px;
     bottom: none;
   }
 `;
@@ -178,14 +180,6 @@ const ButtonArea = () => {
           />
         ))}
       </ButtonContainer>
-
-      <CustomModal
-        event={true}
-        isOpen={s_isOpen}
-        onClose={() => set_s_isOpen(false)}
-        imageSrc={eventBoard}
-        useType="map"
-      />
     </ButtonAreaWarp>
   );
 };

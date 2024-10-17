@@ -6,11 +6,11 @@ import { useNavigate } from "react-router-dom";
 import btn_lottery_disable from "@/assets/btn_lottery_disable.png";
 import btn_lottery_normal from "@/assets/btn_lottery_normal.svg";
 import btn_museum from "@/assets/btn_museum.svg";
-import museum_disabled from "@/assets/museum_disabled.png";
 import theater_disabled from "@/assets/theater_disabled.png";
 import game_disabled from "@/assets/game_disabled.png";
 import btn_theater from "@/assets/btn_theater.svg";
-import btn_game from "@/assets/btn_game.svg";
+import btn_game from "@/assets/btn_game.png";
+import museum_disabled from "@/assets/museum_disabled.png";
 import btn_home_desktop from "@/assets/btn_home_desktop.png";
 import map_label_popup2 from "@/assets/map_label_popup2.svg";
 import land_map from "@/assets/land_map.svg";
@@ -18,7 +18,7 @@ import map_tag_01 from "@/assets/map_tag_01.png";
 import map_tag_02 from "@/assets/map_tag_02.png";
 import map_tag_03 from "@/assets/map_tag_03.png";
 import map_tag_04 from "@/assets/map_tag_04.png";
-import logo from "@/assets/logo1.svg";
+import logo from "@/assets/logo.png";
 
 import CustomModal from "@/components/CustomModal";
 
@@ -27,6 +27,7 @@ const ContentWrapper = styled.div`
   position: relative;
   width: 100%;
   height: 100vh;
+  min-height: 100vh;
   background-image: url(${land_map});
   background-size: 100% 100%;
   background-position: top;
@@ -35,6 +36,7 @@ const ContentWrapper = styled.div`
   flex-direction: column;
   align-items: end;
   justify-content: center;
+  overflow: hidden;
   @media (max-width: 480px) {
     height: 90vh;
   }
