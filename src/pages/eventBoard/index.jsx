@@ -160,12 +160,14 @@ const StyledList = styled.ul`
   list-style-type: disc;
   padding-left: 20px;
   margin: 0;
+  /* background: #fff; */
+  padding-top: ${({ index }) => (index === 4 ? `10px` : ` none`)};
   @media (max-width: 480px) {
     font-size: 20px;
     text-align: ${({ index }) => (index === 0 ? `center` : `left`)};
     /* width: 90%; */
     width: ${({ index }) => (index === 3 ? `100%` : ` 90%`)};
-
+    background: #fff;
     box-sizing: border-box;
   }
 `;
@@ -240,9 +242,9 @@ const Theater = () => {
                   </StyledList>
                 </FlexContainer>
               ) : index === 4 ? (
-                <StyledList>
+                <StyledList index={index}>
                   {item.text.split("\n").map((line, lineIndex) => (
-                    <StyledListItem key={lineIndex}>
+                    <StyledListItem index={index} key={lineIndex}>
                       <StyledText as="span" index={index}>
                         {line}
                       </StyledText>
