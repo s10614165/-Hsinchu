@@ -167,7 +167,7 @@ const StyledList = styled.ul`
     text-align: ${({ index }) => (index === 0 ? `center` : `left`)};
     /* width: 90%; */
     width: ${({ index }) => (index === 3 ? `100%` : ` 90%`)};
-    background: #fff;
+    /* background: #fff; */
     box-sizing: border-box;
   }
 `;

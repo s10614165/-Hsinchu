@@ -967,7 +967,7 @@ Error generating stack: `+i.message+`
     text-align: ${({index:e})=>e===0?"center":"left"};
     /* width: 90%; */
     width: ${({index:e})=>e===3?"100%":" 90%"};
-    background: #fff;
+    /* background: #fff; */
     box-sizing: border-box;
   }
 `,tc=j.li`
