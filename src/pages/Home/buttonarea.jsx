@@ -98,8 +98,11 @@ const ButtonContainer = styled.div`
   justify-content: center;
   flex-wrap: wrap;
   gap: 40px;
-  max-width: 800px;
   width: 100%;
+  @media (max-width: 480px) {
+  max-width:100%;
+  gap: 20px;
+  }
 `;
 
 const CustomButton = styled.button`
