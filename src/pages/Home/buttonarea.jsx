@@ -6,7 +6,7 @@ import btn_02 from "@/assets/btn_02.png";
 import btn_03 from "@/assets/btn_03.png";
 import btn_04 from "@/assets/btn_04.png";
 import img_date_desktop from "@/assets/img_date_desktop.png";
-import btn_event_guideline from "@/assets/btn_event_guideline.svg";
+import btn_event_guideline from "@/assets/btn_event_guideline.png";
 
 // import logo from "@/assets/logo2.svg";
 import logo from "@/assets/logo.png";
@@ -71,11 +71,11 @@ const CustomEvenButton = styled.button`
   max-height: 267px; // 設置最大高度
 
   @media (max-width: 480px) {
-    width: 20vw; // 在小螢幕上增加相對大小
-    height: 20vh;
-    min-width: 85px; // 調整小螢幕的最小尺寸
-    min-height: 85px;
-    top: -100px;
+    width: 3vw; // 在小螢幕上增加相對大小
+    height: 3vh;
+    min-width: 65px; // 調整小螢幕的最小尺寸
+    min-height: 65px;
+    top: -60px;
     left: -10px;
     bottom: none;
   }

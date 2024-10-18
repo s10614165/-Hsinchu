@@ -12,7 +12,7 @@ import game_disabled from "@/assets/game_disabled.png";
 import btn_theater from "@/assets/btn_theater.png";
 import btn_game from "@/assets/btn_game.png";
 import btn_home_desktop from "@/assets/btn_home_desktop.png";
-import map_label_popup2 from "@/assets/map_label_popup2.svg";
+import map_label_popup2 from "@/assets/map_label_popup.png";
 import land_map from "@/assets/land_map.png";
 import map_tag_01 from "@/assets/map_tag_01.png";
 import map_tag_02 from "@/assets/map_tag_02.png";
