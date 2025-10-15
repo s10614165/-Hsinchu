@@ -1,3 +1,4 @@
+
 // vite.config.js
 import { defineConfig } from "vite";
 import path from "path";
@@ -16,7 +17,9 @@ export default defineConfig({
     },
   },
   plugins: [react()],
-  base: "/chutaxdalp/", // 保持這個設置
+  // base: "/chutaxdalp/", // 保持這個設置
+  base: "/-Hsinchu/", // 與 GitHub Pages 倉庫名稱一致
+
   build: {
     outDir: "dist",
   },
