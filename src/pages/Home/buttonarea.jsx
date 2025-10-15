@@ -8,9 +8,7 @@ import btn_04 from "@/assets/btn_04.png";
 import img_date_desktop from "@/assets/img_date_desktop.png";
 import btn_event_guideline from "@/assets/btn_event_guideline.png";
 
-// import logo from "@/assets/logo2.svg";
 import logo from "@/assets/logo.png";
-import CustomModal from "@/components/CustomModal";
 
 const ButtonAreaWarp = styled.div`
   display: flex;
@@ -131,13 +129,11 @@ const initGameStage = {
 const ButtonArea = () => {
   const navigate = useNavigate();
   const [currentGroup, setCurrentGroup] = useState(null);
-  const [s_isOpen, set_s_isOpen] = useState(false);
 
   const group = [0, 1, 2, 3];
   const buttonImages = [btn_01, btn_02, btn_03, btn_04];
 
   const handleButtonClick = (groupName) => {
-    console.log(groupName);
     if (!localStorage.getItem(`currentGroup`)) {
       localStorage.setItem(
         `currentGroup`,

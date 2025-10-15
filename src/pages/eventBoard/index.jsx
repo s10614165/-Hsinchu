@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import btn_backtomap_desktop from "@/assets/btn_backtomap_desktop.png";
 import guideline_label_desktop from "@/assets/guideline_label_desktop.png";
 import guideline_label_mobile from "@/assets/guideline_label_mobile.png";
 import guideline_logo_mobile from "@/assets/guideline_logo_mobile.png";
@@ -13,10 +12,7 @@ import DImg from "@/assets/D.svg";
 import GlobalStyle from "../../style/GlobalStyle.jsx";
 
 import FImg from "@/assets/F.svg";
-import img_mission_complete from "@/assets/img_mission_complete.png";
 import styled from "styled-components";
-import CustomModal from "@/components/CustomModal";
-import popup_theater from "@/assets/popup_theater.png";
 
 const CenteredWrapper = styled.div`
   display: flex;
@@ -113,11 +109,7 @@ const StyledText = styled.div`
   }
 `;
 
-const FooterText = styled(StyledText)`
-  margin-top: 20px;
-  text-align: left;
-  font-weight: bold;
-`;
+
 
 const CustomButton = styled.button`
   background-size: contain;
@@ -195,23 +187,23 @@ const Theater = () => {
   const ary = [
     {
       img: AImg,
-      text: "113年10月21日起至113年12月9日止。",
+      text: "114年10月28日起至114年12月5日止 。",
     },
     {
       img: BImg,
-      text: "學生組：（國小中低年級組、國小高年級組及國中組）：就讀新竹縣轄內之國民中學、國民小學在學學生。\n社會組：社會大眾（含高中職以上學生）。",
+      text: "學生組（國小中低年級組、國小高年級組、國中組）：就讀新竹縣轄內之國民中學、國民小學在學學生。\n社會組：社會大眾（含高中職以上學生）。",
     },
     {
       img: FImg,
-      text: "學生組：國小中低年級組及國小高年級組抽出110名得獎者、國中組70名，每名致贈300元超商禮物卡。\n社會組：抽出50 名得獎者，每名致贈300元超商禮物卡。",
+      text: "(一)分為三階段抽獎：\n1.第一階段：114年10月28日起至114年11月9日。\n2.第二階段：114年11月10日起至114年11月22日。\n3.第三階段：114年11月23日起至114年12月5日。\n(二)各組別獎項：\n1.國小組（含國小中低年級組及國小高年級組）活動闖關獎：\n第一、二階段每階段各抽出500元禮券6名、300元禮券35名；第三階段抽出500元禮券8名、300元禮券40名（總獎項為500元禮券共20名；300元禮券共110名）。\n2.國中組活動闖關獎：\n第一、二階段每階段各抽出500元禮券3名、300元禮券15名；第三階段抽出500元禮券4名、300元禮券20名（總獎項為500元禮券共10名；300元禮券共50名）。\n3.社會組：\n(1)活動闖關獎：第一、二階段每階段各抽出500元禮券3名、300元禮券30名；第三階段抽出500元禮券4名、300元禮券40名（總獎項為500元禮券共10名；300元禮券共100名）。\n(2)AI達人挑戰獎：500元禮券10名。",
     },
     {
       img: DImg,
-      text: "選擇符合資格之組別進入，完成電影院、美術館及遊樂園3關卡後，抽獎趣會解鎖，即可進入填寫基本資料參加抽獎。\n電影院：觀看動畫或影片\n美術館：參觀線上藝廊\n遊樂園：完成租稅遊戲\n抽獎趣：填寫基本資料參加抽獎(每人限填答1次)",
+      text: "選擇符合資格之組別進入，完成電影院及美術館關卡後，問答挑戰趣/ AI達人挑戰趣會解鎖，即可進入回答租稅問答，並填寫基本資料參加抽獎，每人每階段限填答1次。社會組於「AI達人挑戰趣」關卡內可加碼參加AI挑戰，運用生成式AI工具（如：Copilot、ChatGPT、Gemini等）發想20字以內之宣導標語，須與地方稅節稅資訊、房屋稅2.0、雲端發票及統一發票兌獎APP、納稅者權利保護法、稅籍異動即時通等稅務知識相關，並上傳1-3張使用上述生成式AI工具生成標語之指令截圖畫面佐證。\n學生組：\n電影院(觀看動畫)→美術館(參觀線上藝廊)→問答挑戰趣(完成租稅問答，並填寫基本資料參加抽獎，每人每階段限填答1次)\n社會組：\n電影院(觀看影片)→美術館(參觀線上藝廊)→AI達人挑戰趣(可加碼參加AI挑戰，也可僅完成租稅問答並填寫基本資料後，參加活動闖關獎之抽獎，每人每階段限填答1次)",
     },
     {
       img: CImg,
-      text: "活動結束後，由本局進行電腦隨機抽獎，得獎名單於活動結束1個月內公布於本局網站。\n社會組獎項以掛號寄發予得獎人，學生組獎項，委請獲獎學生之學校辦理領獎事宜。\n得獎者資料若不符合參加資格（學生組須就讀於新竹縣轄內之國中、小學在學學生），本局將取消領獎資格，中獎名額取消不再另行抽獎。\n若因得獎人之個人資料填寫不完整或不正確，導致得獎信件無法送達或退回者，視同得獎者自願放棄中獎資格，且獎項不另行補發，中獎名額取消不再另行抽獎。\n主辦單位保有一切修改或補充本活動辦法及注意事項規範之權利。如對本活動辦法及注意事項之規範有疑義或爭議時，主辦單位擁有最終解釋權及決定權。如有未盡事宜，主辦單位得隨時補充公告。",
+      text: "活動闖關獎：活動結束後，擇期由本局實體抽獎，抽獎過程將以本局官方臉書粉絲專頁直播，得獎名單將於各階段活動結束後2個星期內公布於本局網站，惟每人限得獎1次。\nAI達人挑戰獎：將於活動結束後進行評選，依「租稅主題及內容完整性」與「創意及趣味性」評選出10位優勝者，每位獲得500元禮券，每人限得獎1次。\n社會組獎項以掛號寄發予得獎人；學生組獎項，委請獲獎學生之學校辦理領獎事宜\n得獎者資料若不符合參加資格（如學生組須就讀於新竹縣轄內之國中、小學在學學生等），本局將取消領獎資格，中獎名額取消不再另行抽獎。\n若因得獎人之個人資料填寫不完整或不正確，導致得獎信件無法送達或退回者，視同得獎者自願放棄中獎資格，且獎項不另行補發，中獎名額取消不再另行抽獎。\n主辦單位保有一切修改或補充本活動辦法及注意事項規範之權利。如對本活動辦法及注意事項之規範有疑義或爭議時，主辦單位擁有最終解釋權及決定權。如有未盡事宜，主辦單位得隨時補充公告。",
     },
   ];
   return (
@@ -232,13 +224,19 @@ const Theater = () => {
                     {item.text
                       .split("\n")
                       .slice(1)
-                      .map((line, lineIndex) => (
-                        <StyledListItem key={lineIndex}>
-                          <StyledText as="span" index={index}>
+                      .map((line, lineIndex) => 
+                        lineIndex % 2 === 1 ? (
+                          <StyledText as="span" index={index} key={lineIndex}>
                             {line}
                           </StyledText>
-                        </StyledListItem>
-                      ))}
+                        ) : (
+                          <StyledListItem key={lineIndex}>
+                            <StyledText as="span" index={index}>
+                              {line}
+                            </StyledText>
+                          </StyledListItem>
+                        )
+                      )}
                   </StyledList>
                 </FlexContainer>
               ) : index === 4 ? (

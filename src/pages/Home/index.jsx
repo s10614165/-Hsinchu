@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 import { useLocation, useNavigate } from "react-router-dom";
-import { useParams } from "react-router-dom";
-import Banner from "./banner.jsx";
 import ButtonArea from "./buttonarea.jsx";
 import banner_desk from "@/assets/banner_desk.png";
 import banner_mobile from "@/assets/banner_mobile.png";
