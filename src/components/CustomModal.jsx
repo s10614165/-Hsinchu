@@ -70,12 +70,11 @@ const StyledImage = styled.img`
 const ImageModal = ({
   isOpen,
   onClose,
-  imageSrc = "map_label_popup.png",
-  useType = "map",
+  imageSrc = "map_label_popup3.png",
   event = false,
+  target="adult",
 }) => {
   if (!isOpen) return null;
-  console.log(event);
   return (
     <ModalOverlay onClick={onClose}>
       <ModalContent event={event}>

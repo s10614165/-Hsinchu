@@ -3,8 +3,10 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
 // 導入所有必要的圖片資源
-import btn_lottery_disable from "@/assets/btn_lottery_disable.png";
-import btn_lottery_normal from "@/assets/btn_lottery_normal.png";
+import btn_lottery_disable_adult from "@/assets/btn_lottery_disable_adult.png";
+import btn_lottery_normal_adult from "@/assets/btn_lottery_normal_adult.png";
+import btn_lottery_disable_student from "@/assets/btn_lottery_disable_student.png";
+import btn_lottery_normal_student from "@/assets/btn_lottery_normal_student.png";
 import museum_disabled from "@/assets/museum_disabled.png";
 import btn_museum from "@/assets/btn_museum.png";
 import theater_disabled from "@/assets/theater_disabled.png";
@@ -12,7 +14,8 @@ import game_disabled from "@/assets/game_disabled.png";
 import btn_theater from "@/assets/btn_theater.png";
 import btn_game from "@/assets/btn_game.png";
 import btn_home_desktop from "@/assets/btn_home_desktop.png";
-import map_label_popup2 from "@/assets/map_label_popup.png";
+import map_label_popup3 from "@/assets/map_label_popup1.png";
+import map_label_popup4 from "@/assets/map_label_popup2.png";
 import land_map from "@/assets/land_map.png";
 import map_tag_01 from "@/assets/map_tag_01.png";
 import map_tag_02 from "@/assets/map_tag_02.png";
@@ -21,6 +24,9 @@ import map_tag_04 from "@/assets/map_tag_04.png";
 import logo from "@/assets/logo.png";
 
 import CustomModal from "@/components/CustomModal";
+
+
+
 
 const ContentWrapper = styled.div`
   /* background-color: red; */
@@ -122,8 +128,23 @@ const CustomButtonLock = styled(CustomButton)`
   max-height: 201px;
   transform: scale(1.2); // 放大 game 按鈕
   /* transform: translate(150%, 0%); */
-  background-image: ${({ isLocked }) =>
-    isLocked ? `url(${btn_lottery_disable})` : `url(${btn_lottery_normal})`};
+ background-image: ${({ isLocked, target }) => {
+
+  const LOTTERY_IMAGES = {
+  locked: {
+    3: btn_lottery_disable_adult,
+    default: btn_lottery_disable_student,
+  },
+  unlocked: {
+    3: btn_lottery_normal_adult,
+    default: btn_lottery_normal_student,
+  },
+};
+
+  const state = isLocked ? 'locked' : 'unlocked';
+  const image = LOTTERY_IMAGES[state][target] || LOTTERY_IMAGES[state].default;
+  return `url(${image})`;
+}};
   @media (max-width: 480px) {
     transform: translate(-50%, 160%);
   }
@@ -218,10 +239,10 @@ const GroupImage = styled.img`
 `;
 
 const navigateUrl = {
-  0: "https://www.chutax.gov.tw/Active_ReadAgree.aspx?n=397&ss=A08360D6FCAB8088&t=22E7C1255BF33664A9DE064055F49809",
-  1: "https://www.chutax.gov.tw/Active_ReadAgree.aspx?n=397&ss=A08360D6FCAB8088&t=22E7C1255BF33664A9DE064055F49809",
-  2: "https://www.chutax.gov.tw/Active_ReadAgree.aspx?n=397&ss=F00646E53B749D5A&t=22E7C1255BF33664A9DE064055F49809",
-  3: "https://www.chutax.gov.tw/Active_ReadAgree.aspx?n=397&ss=2FFB87952DB5BA15&t=22E7C1255BF33664A9DE064055F49809",
+  0: "https://www.chutax.gov.tw/Active_ReadAgree.aspx?n=397&ss=4ECBF412C471DB74&t=22E7C1255BF33664A9DE064055F49809",
+  1: "https://www.chutax.gov.tw/Active_ReadAgree.aspx?n=397&ss=4ECBF412C471DB74&t=22E7C1255BF33664A9DE064055F49809",
+  2: "https://www.chutax.gov.tw/Active_ReadAgree.aspx?n=397&ss=81C43C3FB0EB082F&t=22E7C1255BF33664A9DE064055F49809",
+  3: "https://www.chutax.gov.tw/Active_ReadAgree.aspx?n=397&ss=65DC36EF36FD9081&t=22E7C1255BF33664A9DE064055F49809",
 };
 
 const groupImage = {
@@ -239,7 +260,6 @@ const Map = () => {
   const storedCurrentGroup = JSON.parse(localStorage.getItem("currentGroup"));
 
   useEffect(() => {
-    // const parse = JSON.parse(storedCurrentGroup);
     console.log(storedCurrentGroup);
     if (Object.keys(storedCurrentGroup).length > 0) {
       set_s_CurrentGroup(storedCurrentGroup.group);
@@ -250,6 +270,7 @@ const Map = () => {
   }, []);
 
   const handleLockButtonClick = () => {
+    console.log(s_groupActivities)
     const isLocked = Object.values(s_groupActivities).includes(0);
 
     if (isLocked) {
@@ -266,9 +287,11 @@ const Map = () => {
         <Logo src={logo} alt="Logo" />
         <GroupImage src={groupImage[s_currentGroup]} alt="Group Image" />
       </Banner>
+
       <CustomButtonLock
         isLocked={Object.values(s_groupActivities).includes(0)}
         onClick={handleLockButtonClick}
+        target={s_currentGroup}
       />
       <CustomButton
         className="museum"
@@ -291,7 +314,7 @@ const Map = () => {
         onClick={() => navigate("/theater")}
         style={{ top: "60%", left: "52%" }}
       />
-      <CustomButton
+      {/* <CustomButton
         className="game"
         src={
           storedCurrentGroup.gameStage[storedCurrentGroup.group]
@@ -306,12 +329,12 @@ const Map = () => {
           // navigate("/chutaxdalp/theater");
         }}
         style={{ top: "30%", left: "35%" }}
-      />
+      /> */}
       <CustomButtonBack src={btn_home_desktop} onClick={() => navigate("/")} />
       <CustomModal
         isOpen={s_isOpen}
         onClose={() => set_s_isOpen(false)}
-        imageSrc={map_label_popup2}
+        imageSrc={s_currentGroup === 3 ? map_label_popup3 : map_label_popup4}
         useType="map"
       />
     </ContentWrapper>

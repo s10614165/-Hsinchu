@@ -123,7 +123,7 @@ const CustomButton = styled.button`
 `;
 const initGameStage = {
   artGallery: 0,
-  amusementPark: 0,
+  amusementPark: 1,
   theater: 0,
 };
 const ButtonArea = () => {

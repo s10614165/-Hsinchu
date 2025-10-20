@@ -1,5 +1,4 @@
 import React from "react";
-import bannerImg from "@/assets/banner1.png";
 import banner_desk from "@/assets/banner_desk.png";
 import banner_mobile from "@/assets/banner_mobile.png";
 import styled from "styled-components";

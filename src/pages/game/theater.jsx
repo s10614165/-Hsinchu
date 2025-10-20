@@ -10,10 +10,10 @@ import popup_theater from "@/assets/popup_theater.png";
 import GlobalStyle from "../../style/GlobalStyle.jsx";
 
 const videioUrl = {
-  0: "https://youtu.be/kIS7D-Jm55E?si=-93y75MFEREnUHhP",
-  1: "https://youtu.be/8ovS03EfORU?si=SXy3ex9LxxlWajc_",
-  2: "https://youtu.be/bn7DlPLA2dA?si=GtuCwRqMnXjNtJAY",
-  3: "https://youtu.be/fdW0xHdpB74?si=dFx0nRN_8xjokBK2",
+  0: "https://youtu.be/hiv6V2M4L0k?si=Yad_zYY45TYaqJuu",
+  1: "https://youtu.be/V1au0_PziQ8?si=8xt9Guiah_5mWI7f",
+  2: "https://youtu.be/BH9LUGuz2u4?si=4FkerEgdIqPa-yiz",
+  3: "https://youtu.be/gCKNGVYrIHE?si=sHbGTJ_8bAUBjkzh",
 };
 
 const CustomButton = styled.button`
@@ -79,16 +79,7 @@ const StyledContainer = styled.div`
   }
 `;
 
-const TitleImage = styled.img`
-  position: absolute;
-  top: 0px;
-  left: 50%;
-  transform: translateX(-50%);
-  max-width: 600px;
-  width: 30%;
-  height: auto;
-  z-index: 20;
-`;
+
 
 const ContentWrapper = styled.div`
   display: flex;

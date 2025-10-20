@@ -1,11 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-  lazy,
-  Suspense,
-  useRef,
-  useCallback,
-} from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import btn_backtomap_desktop from "@/assets/btn_backtomap_desktop.png";
 import museum_label_desktop from "@/assets/museum_label_desktop.png";
@@ -18,76 +11,41 @@ import CustomModal from "@/components/CustomModal";
 import popup_museum_mission from "@/assets/popup_museum_mission.png";
 
 // Import all the picture assets
-import picture00 from "@/assets/00.png";
-import picture01 from "@/assets/01.png";
-import picture02 from "@/assets/02.png";
-import picture03 from "@/assets/03.png";
-import picture04 from "@/assets/04.png";
-import picture05 from "@/assets/05.png";
-import picture06 from "@/assets/06.png";
-import picture07 from "@/assets/07.png";
+import picture00 from "@/assets/00.jpg";
+import picture01 from "@/assets/01.jpg";
+import picture02 from "@/assets/02.jpg";
+import picture03 from "@/assets/03.jpg";
+import picture04 from "@/assets/04.jpg";
+import picture05 from "@/assets/05.jpg";
+import picture06 from "@/assets/06.jpg";
+import picture07 from "@/assets/07.jpg";
 
-import picture10 from "@/assets/10.png";
-import picture11 from "@/assets/11.png";
-import picture12 from "@/assets/12.png";
-import picture13 from "@/assets/13.png";
-import picture14 from "@/assets/14.png";
-import picture15 from "@/assets/15.png";
-import picture16 from "@/assets/16.png";
-import picture17 from "@/assets/17.png";
+import picture10 from "@/assets/10.jpg";
+import picture11 from "@/assets/11.jpg";
+import picture12 from "@/assets/12.jpg";
+import picture13 from "@/assets/13.jpg";
+import picture14 from "@/assets/14.jpg";
+import picture15 from "@/assets/15.jpg";
+import picture16 from "@/assets/16.jpg";
+import picture17 from "@/assets/17.jpg";
 
-import picture20 from "@/assets/20.png";
-import picture21 from "@/assets/21.png";
-import picture22 from "@/assets/22.png";
-import picture23 from "@/assets/23.png";
-import picture24 from "@/assets/24.png";
-import picture25 from "@/assets/25.png";
-import picture26 from "@/assets/26.png";
-import picture27 from "@/assets/27.png";
+import picture20 from "@/assets/10.jpg";
+import picture21 from "@/assets/11.jpg";
+import picture22 from "@/assets/12.jpg";
+import picture23 from "@/assets/13.jpg";
+import picture24 from "@/assets/14.jpg";
+import picture25 from "@/assets/15.jpg";
+import picture26 from "@/assets/16.jpg";
+import picture27 from "@/assets/17.jpg";
 
-import picture30 from "@/assets/30.png";
-import picture31 from "@/assets/31.png";
-import picture32 from "@/assets/32.png";
-import picture33 from "@/assets/33.png";
-import picture34 from "@/assets/34.png";
-import picture35 from "@/assets/35.png";
-import picture36 from "@/assets/36.png";
-import picture37 from "@/assets/37.png";
-
-// LazyImage component
-const LazyImage = ({ src, alt }) => {
-  const [isLoaded, setIsLoaded] = useState(false);
-  const imgRef = useRef(null);
-
-  const onLoad = useCallback(() => {
-    setIsLoaded(true);
-  }, []);
-
-  useEffect(() => {
-    if (imgRef.current && imgRef.current.complete) {
-      onLoad();
-    }
-  }, [onLoad]);
-
-  return (
-    <>
-      {!isLoaded && <LoadingPlaceholder>Loading...</LoadingPlaceholder>}
-      <StyledImage
-        ref={imgRef}
-        src={src}
-        alt={alt}
-        onLoad={onLoad}
-        style={{ display: isLoaded ? "block" : "none" }}
-      />
-    </>
-  );
-};
-const StyledImage = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: opacity 0.5s ease-in-out;
-`;
+import picture30 from "@/assets/30.jpg";
+import picture31 from "@/assets/31.jpg";
+import picture32 from "@/assets/32.jpg";
+import picture33 from "@/assets/33.jpg";
+import picture34 from "@/assets/34.jpg";
+import picture35 from "@/assets/35.jpg";
+import picture36 from "@/assets/36.jpg";
+import picture37 from "@/assets/37.jpg";
 
 const CenteredWrapper = styled.div`
   display: flex;
@@ -253,17 +211,6 @@ const RightButton = styled(CarouselButton)`
   @media (max-width: 480px) {
     right: -30px;
   }
-`;
-
-const LoadingPlaceholder = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #f0f0f0;
-  color: #666;
-  font-size: 18px;
 `;
 
 const imageUrl = {
