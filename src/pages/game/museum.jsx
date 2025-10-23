@@ -38,12 +38,12 @@ import picture25 from "@/assets/15.jpg";
 import picture26 from "@/assets/16.jpg";
 import picture27 from "@/assets/17.jpg";
 
-import picture30 from "@/assets/35.jpg";
+import picture30 from "@/assets/30.jpg";
 import picture31 from "@/assets/31.jpg";
 import picture32 from "@/assets/32.jpg";
 import picture33 from "@/assets/33.jpg";
 import picture34 from "@/assets/34.jpg";
-import picture35 from "@/assets/30.jpg";
+import picture35 from "@/assets/35.jpg";
 import picture36 from "@/assets/36.jpg";
 import picture37 from "@/assets/37.jpg";
 
