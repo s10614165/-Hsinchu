@@ -43,11 +43,11 @@ const StyledContainer = styled.div`
   position: relative;
 
   @media (max-width: 768px) {
-    padding: 50px 15px 30px;
+    padding: 50px 15px 90px;
   }
 
   @media (max-width: 480px) {
-    padding: 80px 10px 20px;
+    padding: 80px 10px 50px;
 
     background-image: url(${guideline_label_mobile});
   }
@@ -77,6 +77,7 @@ const StyledImage = styled.img`
   @media (max-width: 480px) {
     width: 120px;
     height: 31px;
+   
   }
 `;
 const StyledTitleImage = styled.img`
@@ -199,7 +200,7 @@ const Theater = () => {
     },
     {
       img: DImg,
-      text: "選擇符合資格之組別進入，完成電影院及美術館關卡後，問答挑戰趣/ AI達人挑戰趣會解鎖，即可進入回答租稅問答，並填寫基本資料參加抽獎，每人每階段限填答1次。社會組於「AI達人挑戰趣」關卡內可加碼參加AI挑戰，運用生成式AI工具（如：Copilot、ChatGPT、Gemini等）發想20字以內之宣導標語，須與地方稅節稅資訊、房屋稅2.0、雲端發票及統一發票兌獎APP、納稅者權利保護法、稅籍異動即時通等稅務知識相關，並上傳1-3張使用上述生成式AI工具生成標語之指令截圖畫面佐證。\n學生組：\n電影院(觀看動畫)→美術館(參觀線上藝廊)→問答挑戰趣(完成租稅問答，並填寫基本資料參加抽獎，每人每階段限填答1次)\n社會組：\n電影院(觀看影片)→美術館(參觀線上藝廊)→AI達人挑戰趣(可加碼參加AI挑戰，也可僅完成租稅問答並填寫基本資料後，參加活動闖關獎之抽獎，每人每階段限填答1次)",
+      text: "選擇符合資格之組別進入，完成電影院及美術館關卡後，問答挑戰趣/ AI達人挑戰趣會解鎖，即可進入回答租稅問答，並填寫基本資料參加抽獎，每人每階段限填答1次。\n※社會組於「AI達人挑戰趣」關卡內可加碼參加AI挑戰，運用生成式AI工具（如：Copilot、ChatGPT、Gemini等）發想20字以內之宣導標語，須與地方稅節稅資訊、房屋稅2.0、雲端發票及統一發票兌獎APP、納稅者權利保護法、稅籍異動即時通等稅務知識相關，並上傳1-3張使用上述生成式AI工具生成標語之指令截圖畫面佐證。\n學生組：\n電影院(觀看動畫)→美術館(參觀線上藝廊)→問答挑戰趣(完成租稅問答，並填寫基本資料參加抽獎，每人每階段限填答1次)\n社會組：\n電影院(觀看影片)→美術館(參觀線上藝廊)→AI達人挑戰趣(可加碼參加AI挑戰，也可僅完成租稅問答並填寫基本資料後，參加活動闖關獎之抽獎，每人每階段限填答1次)",
     },
     {
       img: CImg,
@@ -220,10 +221,13 @@ const Theater = () => {
                   <StyledText index={index}>
                     {item.text.split("\n")[0]}
                   </StyledText>
+                    <StyledText index={index}>
+                    {item.text.split("\n")[1]}
+                  </StyledText>
                   <StyledList index={index}>
                     {item.text
                       .split("\n")
-                      .slice(1)
+                      .slice(2)
                       .map((line, lineIndex) => 
                         lineIndex % 2 === 1 ? (
                           <StyledText as="span" index={index} key={lineIndex}>
